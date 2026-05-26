@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://otabekmuhammadaliyev95-gif.github.io/realmadridnews/sitemap.xml

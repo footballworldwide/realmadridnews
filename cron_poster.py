@@ -6,10 +6,10 @@ import requests
 from bs4 import BeautifulSoup
 
 # ==================== CONFIGURATION ====================
-SOURCE_CHANNEL = "https://t.me/s/SkySportsNews"  # Source to scrape news from
-TARGET_CHANNEL = "@RealMadridNews1000"        # Your channel username (must start with @)
+SOURCE_CHANNELS = ["https://t.me/s/FabrizioRomano", "https://t.me/s/espnfc", "https://t.me/s/publicgift1"]  # Sources to scrape news from
+TARGET_CHANNEL = "@FOOTBALLWORLDWIDE1"        # Your channel username (must start with @)
 # The Telegram Bot Token will be read securely from GitHub Secrets
-BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+BOT_TOKEN = "8939723654:AAHxjv7bQ4R3hnDXNuacENxaSdh2Y4yF7F0"
 # =======================================================
 
 SENT_POSTS_FILE = "sent_posts.json"
@@ -26,6 +26,31 @@ def load_sent_posts():
 def save_sent_posts(sent_ids):
     with open(SENT_POSTS_FILE, "w", encoding="utf-8") as f:
         json.dump(list(sent_ids), f, ensure_ascii=False, indent=4)
+
+def init_sent_posts():
+    print("Eski xabarlar o'qilmoqda... Ular kanalga yuborilmaydi.")
+    sent_posts = set()
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+    }
+    for source in SOURCE_CHANNELS:
+        try:
+            response = requests.get(source, headers=headers, timeout=15)
+            if response.status_code == 200:
+                soup = BeautifulSoup(response.text, "html.parser")
+                messages = soup.find_all("div", class_="tgme_widget_message")
+                for msg in messages:
+                    post_id = msg.get("data-post")
+                    if not post_id:
+                        link_el = msg.find("a", class_="tgme_widget_message_date")
+                        if link_el and "href" in link_el.attrs:
+                            post_id = link_el["href"].split("/")[-1]
+                    if post_id:
+                        sent_posts.add(post_id)
+        except Exception:
+            pass
+    save_sent_posts(sent_posts)
+    print(f"Jami {len(sent_posts)} ta eski xabar bazaga qo'shildi va ular e'tiborsiz qoldiriladi.")
 
 def send_to_telegram(text, image_url=None):
     """Sends message to the target channel using Telegram Bot API"""
@@ -70,64 +95,68 @@ def send_to_telegram(text, image_url=None):
         return False
 
 def scrape_and_post():
-    print(f"Scraping {SOURCE_CHANNEL} to forward new posts to {TARGET_CHANNEL}...")
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
     }
 
-    try:
-        response = requests.get(SOURCE_CHANNEL, headers=headers, timeout=15)
-        if response.status_code != 200:
-            print(f"Error fetching channel: {response.status_code}")
-            return
-            
-        soup = BeautifulSoup(response.text, "html.parser")
-        messages = soup.find_all("div", class_="tgme_widget_message")
-        
-        sent_posts = load_sent_posts()
-        new_posts_count = 0
-        
-        # Process from oldest to newest in the scraped batch to post chronologically
-        for msg in messages:
-            post_id = msg.get("data-post")
-            if not post_id:
-                link_el = msg.find("a", class_="tgme_widget_message_date")
-                if link_el and "href" in link_el.attrs:
-                    post_id = link_el["href"].split("/")[-1]
-            
-            if not post_id or post_id in sent_posts:
+    for source in SOURCE_CHANNELS:
+        print(f"Scraping {source} to forward new posts to {TARGET_CHANNEL}...")
+        try:
+            response = requests.get(source, headers=headers, timeout=15)
+            if response.status_code != 200:
+                print(f"Error fetching channel {source}: {response.status_code}")
                 continue
                 
-            # Extract text
-            text_el = msg.find("div", class_="tgme_widget_message_text")
-            if not text_el:
-                continue
-            text = text_el.get_text(separator="\n").strip()
+            soup = BeautifulSoup(response.text, "html.parser")
+            messages = soup.find_all("div", class_="tgme_widget_message")
             
-            # Extract image
-            img_url = None
-            photo_el = msg.find("a", class_="tgme_widget_message_photo_wrap")
-            if photo_el and "style" in photo_el.attrs:
-                style_attr = photo_el["style"]
-                match = re.search(r"background-image:url\(['\"]?(.*?)['\"]?\)", style_attr)
-                if match:
-                    img_url = match.group(1)
+            sent_posts = load_sent_posts()
+            new_posts_count = 0
             
-            print(f"Found new post [{post_id}]. Forwarding...")
-            
-            # Post to Channel
-            success = send_to_telegram(text, img_url)
-            if success:
-                sent_posts.add(post_id)
-                new_posts_count += 1
-                save_sent_posts(sent_posts)
-                time.sleep(3)
+            # Process from oldest to newest in the scraped batch to post chronologically
+            for msg in messages:
+                post_id = msg.get("data-post")
+                if not post_id:
+                    link_el = msg.find("a", class_="tgme_widget_message_date")
+                    if link_el and "href" in link_el.attrs:
+                        post_id = link_el["href"].split("/")[-1]
                 
-        print(f"Scrape completed. Forwarded {new_posts_count} new posts.")
-        
-    except Exception as e:
-        print(f"Error during scrape and post: {e}")
+                if not post_id or post_id in sent_posts:
+                    continue
+                    
+                # Extract text
+                text_el = msg.find("div", class_="tgme_widget_message_text")
+                if not text_el:
+                    continue
+                text = text_el.get_text(separator="\n").strip()
+                
+                # Extract image
+                img_url = None
+                photo_el = msg.find("a", class_="tgme_widget_message_photo_wrap")
+                if photo_el and "style" in photo_el.attrs:
+                    style_attr = photo_el["style"]
+                    match = re.search(r"background-image:url\(['\"]?(.*?)['\"]?\)", style_attr)
+                    if match:
+                        img_url = match.group(1)
+                
+                print(f"Found new post [{post_id}]. Forwarding...")
+                
+                # Post to Channel
+                success = send_to_telegram(text, img_url)
+                if success:
+                    sent_posts.add(post_id)
+                    new_posts_count += 1
+                    save_sent_posts(sent_posts)
+                    time.sleep(3)
+                    
+            print(f"Scrape completed for {source}. Forwarded {new_posts_count} new posts.")
+            
+        except Exception as e:
+            print(f"Error during scrape and post for {source}: {e}")
 
 if __name__ == "__main__":
+    if not os.path.exists(SENT_POSTS_FILE):
+        init_sent_posts()
+        
     # Runs exactly once per execution (ideal for Cron / GitHub Actions)
     scrape_and_post()
