@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madridista Central - Real Madrid News Aggregator</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        rmblue: '#00529F',
+                        rmgold: '#FEBE10',
+                        rmdark: '#0B0F19',
+                        rmcard: '#16223F',
+                        rmdarkblue: '#070A12',
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        cinzel: ['Cinzel', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #070A12;
+            color: #FFFFFF;
+            font-family: 'Outfit', sans-serif;
+        }
+        .gold-glow:hover {
+            box-shadow: 0 0 20px rgba(254, 190, 16, 0.4);
+            border-color: #FEBE10;
+        }
+        .blue-gradient {
+            background: linear-gradient(135deg, #00529F 0%, #070A12 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-rmgold selection:text-rmdarkblue">
+
+    <!-- Header Section -->
+    <header class="sticky top-0 z-50 bg-rmdarkblue/90 backdrop-blur-md border-b border-rmgold/20 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <img src="logo.png" alt="Real Madrid Logo" class="h-14 w-auto drop-shadow-[0_0_8px_rgba(254,190,16,0.3)]">
+                <div>
+                    <h1 class="font-cinzel text-xl sm:text-2xl font-bold tracking-wider text-white">
+                        MADRIDISTA<span class="text-rmgold">CENTRAL</span>
+                    </h1>
+                    <p class="text-[10px] uppercase tracking-widest text-gray-400">Premium Aggregator</p>
+                </div>
+            </div>
+
+            <!-- Nav Links / Status -->
+            <div class="flex items-center space-x-6">
+                <nav class="hidden md:flex space-x-6 text-sm font-semibold tracking-wider uppercase">
+                    <a href="#" class="text-rmgold border-b-2 border-rmgold pb-1 transition-colors">Latest News</a>
+                    <a href="https://t.me/RealMadridNews1000" target="_blank" class="text-gray-300 hover:text-rmgold transition-colors">Telegram Channel</a>
+                    <a href="https://www.realmadrid.com" target="_blank" class="text-gray-300 hover:text-rmgold transition-colors">Official Website</a>
+                </nav>
+
+                <!-- Status indicator & Manual Refresh -->
+                <div class="flex items-center space-x-3 bg-rmcard/80 border border-rmgold/30 px-3 py-1.5 rounded-full text-xs">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
+                    <span id="update-timer" class="text-gray-300 font-medium">Updating...</span>
+                    <button id="refresh-btn" class="text-rmgold hover:text-white transition-colors duration-200" title="Refresh Now">
+                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89M21 3v5h-5" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        <!-- Error Banner (Hidden by default) -->
+        <div id="error-banner" class="hidden mb-8 p-4 bg-red-950/80 border border-red-500/50 rounded-xl text-red-200 text-sm flex items-center space-x-3">
+            <svg class="h-5 w-5 text-red-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <span>Unable to load latest news from `news.json`. Please make sure the Python scraper has been run. Displaying cached/demo data instead.</span>
+        </div>
+
+        <!-- Hero Section (Latest Post) -->
+        <section id="hero-section" class="mb-12 opacity-0 transition-opacity duration-700">
+            <div class="relative rounded-3xl overflow-hidden border border-rmgold/30 bg-rmcard shadow-2xl flex flex-col lg:flex-row">
+                <!-- Background decorative elements -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-rmblue/10 rounded-full blur-3xl -z-10"></div>
+                
+                <!-- Hero Image -->
+                <div class="lg:w-3/5 h-64 sm:h-96 lg:h-auto min-h-[350px] relative">
+                    <img id="hero-img" src="" alt="Hero News Image" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-rmdarkblue via-transparent to-transparent"></div>
+                    <span class="absolute top-4 left-4 bg-rmgold text-rmdarkblue font-extrabold text-xs px-3 py-1.5 rounded-md uppercase tracking-wider shadow-md">
+                        LATEST UPDATE
+                    </span>
+                </div>
+                
+                <!-- Hero Content -->
+                <div class="lg:w-2/5 p-6 sm:p-8 lg:p-12 flex flex-col justify-center space-y-6">
+                    <div class="flex items-center space-x-3 text-xs text-rmgold font-semibold tracking-wider uppercase">
+                        <span id="hero-date">Just now</span>
+                        <span>•</span>
+                        <span>Official Channel</span>
+                    </div>
+                    <h2 id="hero-title" class="text-2xl sm:text-3xl lg:text-4xl font-bold font-sans text-white leading-tight tracking-tight hover:text-rmgold transition-colors duration-300">
+                        Loading latest Real Madrid news...
+                    </h2>
+                    <p id="hero-text" class="text-gray-300 text-sm sm:text-base leading-relaxed line-clamp-5">
+                        Please wait while we fetch the freshest content directly from the club feeds and Telegram channels.
+                    </p>
+                    <div class="pt-4 border-t border-gray-700/50 flex items-center justify-between">
+                        <span class="text-xs text-gray-400">Auto-updates every 5 minutes</span>
+                        <a href="https://t.me/RealMadridNews1000" target="_blank" class="inline-flex items-center space-x-2 text-rmgold hover:text-white font-bold text-sm transition-colors group">
+                            <span>Read on Telegram</span>
+                            <svg class="h-4 w-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Title -->
+        <div class="flex items-center justify-between mb-8">
+            <h3 class="font-cinzel text-xl sm:text-2xl font-bold tracking-wide border-l-4 border-rmgold pl-3">
+                More News Feed
+            </h3>
+            <span class="text-xs text-gray-400 uppercase tracking-widest">Hala Madrid y Nada Más</span>
+        </div>
+
+        <!-- News Grid -->
+        <section id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Cards will be injected dynamically -->
+            <!-- Skeleton Loader -->
+            <div class="bg-rmcard animate-pulse rounded-2xl border border-gray-800 h-96"></div>
+            <div class="bg-rmcard animate-pulse rounded-2xl border border-gray-800 h-96"></div>
+            <div class="bg-rmcard animate-pulse rounded-2xl border border-gray-800 h-96"></div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-rmdarkblue border-t border-rmgold/20 py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
+            <div class="flex justify-center items-center space-x-2">
+                <img src="logo.png" alt="Real Madrid Logo" class="h-8 w-auto opacity-70">
+                <span class="font-cinzel font-bold tracking-wider text-sm">MADRIDISTA CENTRAL</span>
+            </div>
+            <p class="text-xs text-gray-500 max-w-md mx-auto">
+                Madridista Central is a self-updating premium fan site. Content scraped from official public channels for demonstration purposes.
+            </p>
+            <p class="text-[10px] text-rmgold/60">
+                &copy; 2026 Madridista Central. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const NEWS_FILE = 'news.json';
+        const REFRESH_INTERVAL = 300 * 1000; // 5 minutes in milliseconds
+        let countdownSeconds = 300;
+        let countdownTimer;
+
+        // Fetch news and update UI
+        async function fetchNews() {
+            try {
+                // Using a cache-busting timestamp to avoid cached JSON
+                const response = await fetch(`${NEWS_FILE}?t=${new Date().getTime()}`);
+                if (!response.ok) throw new Error('File not found');
+                
+                const data = await response.json();
+                if (data && data.length > 0) {
+                    document.getElementById('error-banner').classList.add('hidden');
+                    updateUI(data);
+                } else {
+                    throw new Error('Empty data');
+                }
+            } catch (err) {
+                console.warn('Failed to load news.json, using backup demo data:', err);
+                document.getElementById('error-banner').classList.remove('hidden');
+                
+                // Demo Data Fallback
+                const demoData = [
+                    {
+                        "title": "Welcome to Madridista Central!",
+                        "text": "This feed automatically displays the latest posts. Run `python scraper.py` in your terminal to scrape real posts and generate the live news.json file.",
+                        "image_url": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=80",
+                        "date": new Date().toLocaleString()
+                    },
+                    {
+                        "title": "Real Madrid ready for the UEFA Champions League action",
+                        "text": "The training ground is buzzing. The team held its final training session at Valdebebas ahead of the highly-anticipated clash. Ancelotti expects a full squad selection.",
+                        "image_url": "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80",
+                        "date": new Date().toLocaleString()
+                    },
+                    {
+                        "title": "Mbappe training hard for the next season challenge",
+                        "text": "Kylian Mbappe continues his recovery and conditioning program. Fans are excited to see him leading the frontline soon in the white shirt.",
+                        "image_url": "https://images.unsplash.com/photo-1540747737956-37872404a821?auto=format&fit=crop&w=800&q=80",
+                        "date": new Date().toLocaleString()
+                    }
+                ];
+                updateUI(demoData);
+            }
+            
+            // Reset countdown timer
+            resetCountdown();
+        }
+
+        // Update HTML elements with JSON data
+        function updateUI(posts) {
+            if (!posts || posts.length === 0) return;
+
+            // 1. Hero Section (First post)
+            const hero = posts[0];
+            const heroSection = document.getElementById('hero-section');
+            document.getElementById('hero-img').src = hero.image_url;
+            document.getElementById('hero-title').innerText = hero.title;
+            document.getElementById('hero-text').innerText = hero.text;
+            document.getElementById('hero-date').innerText = hero.date;
+            heroSection.classList.remove('opacity-0');
+            heroSection.classList.add('opacity-100');
+
+            // 2. News Grid (Rest of the posts)
+            const grid = document.getElementById('news-grid');
+            grid.innerHTML = ''; // Clear skeleton loader
+
+            const gridPosts = posts.slice(1);
+            if (gridPosts.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center text-gray-500 py-8">No additional news items.</div>`;
+                return;
+            }
+
+            gridPosts.forEach(post => {
+                const card = document.createElement('article');
+                card.className = "group bg-rmcard rounded-2xl overflow-hidden border border-gray-800 transition-all duration-300 hover:-translate-y-1 gold-glow flex flex-col justify-between";
+                
+                card.innerHTML = `
+                    <div>
+                        <!-- Card Image -->
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="${post.image_url}" alt="${post.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-rmdark/80 to-transparent"></div>
+                        </div>
+                        
+                        <!-- Card Content -->
+                        <div class="p-5 space-y-3">
+                            <div class="flex items-center space-x-2 text-[11px] text-rmgold font-semibold uppercase tracking-wider">
+                                <span>${post.date}</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-white leading-snug line-clamp-2 group-hover:text-rmgold transition-colors duration-200">
+                                ${post.title}
+                            </h4>
+                            <p class="text-xs text-gray-300 leading-relaxed line-clamp-3">
+                                ${post.text}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Card Footer -->
+                    <div class="px-5 pb-5 pt-3 border-t border-gray-850 flex items-center justify-between">
+                        <span class="text-[10px] text-gray-400">Telegram News</span>
+                        <a href="https://t.me/RealMadridNews1000" target="_blank" class="text-xs text-rmgold group-hover:underline font-bold">Read post →</a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Countdown Timer Logic
+        function resetCountdown() {
+            clearInterval(countdownTimer);
+            countdownSeconds = 300;
+            updateTimerText();
+
+            countdownTimer = setInterval(() => {
+                countdownSeconds--;
+                if (countdownSeconds <= 0) {
+                    fetchNews();
+                } else {
+                    updateTimerText();
+                }
+            }, 1000);
+        }
+
+        function updateTimerText() {
+            const minutes = Math.floor(countdownSeconds / 60);
+            const seconds = countdownSeconds % 60;
+            const formattedSec = seconds < 10 ? '0' + seconds : seconds;
+            document.getElementById('update-timer').innerText = `Next auto-refresh: ${minutes}:${formattedSec}`;
+        }
+
+        // Event Listeners
+        document.getElementById('refresh-btn').addEventListener('click', () => {
+            const btn = document.getElementById('refresh-btn');
+            btn.classList.add('animate-spin');
+            fetchNews().finally(() => {
+                setTimeout(() => btn.classList.remove('animate-spin'), 600);
+            });
+        });
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', fetchNews);
+    </script>
+</body>
+</html>
