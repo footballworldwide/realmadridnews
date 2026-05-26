@@ -6,9 +6,9 @@ import requests
 from bs4 import BeautifulSoup
 
 # ==================== CONFIGURATION ====================
-SOURCE_CHANNEL = "https://t.me/s/FUTGOAL"  # Source to scrape news from
+SOURCE_CHANNEL = "https://t.me/s/SkySportsNews"  # Source to scrape news from
 TARGET_CHANNEL = "@RealMadridNews1000"        # Your channel username (must start with @)
-BOT_TOKEN = "8939723654:AAHxjv7bQ4R3hnDXNuacENxaSdh2Y4yF7F0"         # Get this from @BotFather in Telegram
+BOT_TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"         # Get this from @BotFather in Telegram
 # =======================================================
 
 SENT_POSTS_FILE = "sent_posts.json"

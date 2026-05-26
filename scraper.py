@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 # Settings
-CHANNEL_URL = "https://t.me/s/RealMadridNews1000"
+CHANNEL_URL = "https://t.me/s/SkySportsNews"
 JSON_FILE = "news.json"
 
 def scrape_telegram_news():
@@ -128,11 +128,15 @@ if __name__ == "__main__":
     # Run once immediately
     scrape_telegram_news()
     
-    # Loop to run every 10 minutes (600 seconds)
-    print("Scraper is now running in loop mode. Press Ctrl+C to stop.")
-    try:
-        while True:
-            time.sleep(600)
-            scrape_telegram_news()
-    except KeyboardInterrupt:
-        print("Scraper stopped by user.")
+    # Check if running inside GitHub Actions
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        print("Running inside GitHub Actions. Exiting after a single scrape.")
+    else:
+        # Loop to run every 10 minutes (600 seconds)
+        print("Scraper is now running in loop mode. Press Ctrl+C to stop.")
+        try:
+            while True:
+                time.sleep(600)
+                scrape_telegram_news()
+        except KeyboardInterrupt:
+            print("Scraper stopped by user.")

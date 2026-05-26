@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # ==================== CONFIGURATION ====================
-SOURCE_CHANNEL = "https://t.me/s/realmadrid"  # Source to scrape news from
+SOURCE_CHANNEL = "https://t.me/s/SkySportsNews"  # Source to scrape news from
 TARGET_CHANNEL = "@RealMadridNews1000"        # Your channel username (must start with @)
 # The Telegram Bot Token will be read securely from GitHub Secrets
 BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
