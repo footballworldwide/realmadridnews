@@ -3,70 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Football Worldwide - Latest Global Football News, Transfers & Match Updates</title>
-
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Football Worldwide - Your premium source for the latest global football news, transfer rumors, match highlights, Champions League updates, and more. Updated every 30 minutes.">
-    <meta name="keywords" content="football news, soccer news, transfer news, Champions League, Premier League, La Liga, Serie A, Bundesliga, match highlights, football updates, live scores">
-    <meta name="author" content="Football Worldwide">
-    <meta name="robots" content="index, follow">
-    <meta name="google-site-verification" content="X-s6R0ceER5hoIvikD9TNs0UXeq4WTtgteaGM2dhHag" />
-    <link rel="canonical" href="https://otabekmuhammadaliyev95-gif.github.io/realmadridnews/">
-
-    <!-- Open Graph (Facebook, Telegram, WhatsApp preview) -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Football Worldwide - Latest Global Football News">
-    <meta property="og:description" content="Your premium source for the latest global football news, transfers, and match updates. Auto-updated every 30 minutes.">
-    <meta property="og:url" content="https://otabekmuhammadaliyev95-gif.github.io/realmadridnews/">
-    <meta property="og:image" content="https://otabekmuhammadaliyev95-gif.github.io/realmadridnews/logo.png">
-    <meta property="og:site_name" content="Football Worldwide">
-    <meta property="og:locale" content="en_US">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Football Worldwide - Latest Global Football News">
-    <meta name="twitter:description" content="Your premium source for the latest global football news, transfers, and match updates.">
-    <meta name="twitter:image" content="https://otabekmuhammadaliyev95-gif.github.io/realmadridnews/logo.png">
-
-    <!-- JSON-LD Structured Data for Google -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Football Worldwide",
-        "url": "https://otabekmuhammadaliyev95-gif.github.io/realmadridnews/",
-        "description": "Premium global football news aggregator with auto-updating content from major channels.",
-        "publisher": {
-            "@type": "Organization",
-            "name": "Football Worldwide",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://otabekmuhammadaliyev95-gif.github.io/realmadridnews/logo.png"
-            }
-        }
-    }
-    </script>
-    <!-- Tailwind CSS via CDN -->
+    <title>Global Football News - Professional Aggregator</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {
-                        rmblue: '#00529F',
-                        rmgold: '#FEBE10',
-                        rmdark: '#0B0F19',
-                        rmcard: '#16223F',
-                        rmdarkblue: '#070A12',
-                    },
                     fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
-                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0A0A0A',
+                            card: '#141414',
+                            border: '#2A2A2A',
+                            accent: '#3B82F6',
+                            text: '#E5E5E5'
+                        }
                     }
                 }
             }
@@ -74,288 +30,249 @@
     </script>
     <style>
         body {
-            background-color: #070A12;
-            color: #FFFFFF;
-            font-family: 'Outfit', sans-serif;
+            background-color: #0A0A0A;
+            color: #E5E5E5;
         }
-        .gold-glow:hover {
-            box-shadow: 0 0 20px rgba(254, 190, 16, 0.4);
-            border-color: #FEBE10;
+        .glass-nav {
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .blue-gradient {
-            background: linear-gradient(135deg, #00529F 0%, #070A12 100%);
+        .news-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+        .image-zoom {
+            transition: transform 0.7s ease;
+        }
+        .news-card:hover .image-zoom {
+            transform: scale(1.05);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-rmgold selection:text-rmdarkblue">
+<body class="min-h-screen flex flex-col font-sans selection:bg-brand-accent selection:text-white">
 
-    <!-- Header Section -->
-    <header class="sticky top-0 z-50 bg-rmdarkblue/90 backdrop-blur-md border-b border-rmgold/20 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <img src="logo.png" alt="Real Madrid Logo" class="h-14 w-auto drop-shadow-[0_0_8px_rgba(254,190,16,0.3)]">
-                <div>
-                    <h1 class="font-cinzel text-xl sm:text-2xl font-bold tracking-wider text-white">
-                        FOOTBALL<span class="text-rmgold">WORLDWIDE</span>
-                    </h1>
-                    <p class="text-[10px] uppercase tracking-widest text-gray-400">Global Aggregator</p>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 rounded-full bg-brand-accent flex items-center justify-center font-serif text-white font-bold text-xl shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                        FW
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold tracking-tight text-white uppercase">Football<span class="text-brand-accent">Worldwide</span></h1>
+                        <p class="text-[10px] uppercase tracking-widest text-gray-400">Premium News Aggregator</p>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Nav Links / Status -->
-            <div class="flex items-center space-x-6">
-                <nav class="hidden md:flex space-x-6 text-sm font-semibold tracking-wider uppercase">
-                    <a href="#" class="text-rmgold border-b-2 border-rmgold pb-1 transition-colors">Latest News</a>
-                    <a href="https://t.me/RealMadridNews1000" target="_blank" class="text-gray-300 hover:text-rmgold transition-colors">Telegram Channel</a>
-                    <a href="https://www.realmadrid.com" target="_blank" class="text-gray-300 hover:text-rmgold transition-colors">Official Website</a>
-                </nav>
-
-                <!-- Status indicator & Manual Refresh -->
-                <div class="flex items-center space-x-3 bg-rmcard/80 border border-rmgold/30 px-3 py-1.5 rounded-full text-xs">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                    </span>
-                    <span id="update-timer" class="text-gray-300 font-medium">Updating...</span>
-                    <button id="refresh-btn" class="text-rmgold hover:text-white transition-colors duration-200" title="Refresh Now">
-                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89M21 3v5h-5" />
-                        </svg>
-                    </button>
+                <div class="flex items-center space-x-6">
+                    <div class="hidden md:flex items-center space-x-2 bg-brand-card border border-brand-border px-3 py-1.5 rounded-full text-xs">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        <span id="update-timer" class="text-gray-400 font-medium">Live Updates</span>
+                    </div>
+                    <a href="https://t.me/FOOTBALLWORLDWIDE1" target="_blank" class="text-sm font-semibold text-white bg-[#0088cc] hover:bg-[#0077b3] px-5 py-2.5 rounded-lg transition-colors shadow-lg">
+                        Join Telegram
+                    </a>
                 </div>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-        <!-- Error Banner (Hidden by default) -->
-        <div id="error-banner" class="hidden mb-8 p-4 bg-red-950/80 border border-red-500/50 rounded-xl text-red-200 text-sm flex items-center space-x-3">
-            <svg class="h-5 w-5 text-red-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
-            <span>Unable to load latest news from `news.json`. Please make sure the Python scraper has been run. Displaying cached/demo data instead.</span>
-        </div>
-
-        <!-- Hero Section (Latest Post) -->
-        <section id="hero-section" class="mb-12 opacity-0 transition-opacity duration-700">
-            <div class="relative rounded-3xl overflow-hidden border border-rmgold/30 bg-rmcard shadow-2xl flex flex-col lg:flex-row">
-                <!-- Background decorative elements -->
-                <div class="absolute top-0 right-0 w-64 h-64 bg-rmblue/10 rounded-full blur-3xl -z-10"></div>
-                
-                <!-- Hero Image -->
-                <div class="lg:w-3/5 h-64 sm:h-96 lg:h-auto min-h-[350px] relative">
-                    <img id="hero-img" src="" alt="Hero News Image" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-rmdarkblue via-transparent to-transparent"></div>
-                    <span class="absolute top-4 left-4 bg-rmgold text-rmdarkblue font-extrabold text-xs px-3 py-1.5 rounded-md uppercase tracking-wider shadow-md">
-                        LATEST UPDATE
-                    </span>
-                </div>
-                
-                <!-- Hero Content -->
-                <div class="lg:w-2/5 p-6 sm:p-8 lg:p-12 flex flex-col justify-center space-y-6">
-                    <div class="flex items-center space-x-3 text-xs text-rmgold font-semibold tracking-wider uppercase">
-                        <span id="hero-date">Just now</span>
-                        <span>•</span>
-                        <span>Official Channel</span>
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 w-full">
+        
+        <!-- Hero Section -->
+        <div id="hero-section" class="mb-12 hidden">
+            <div class="relative w-full h-[500px] rounded-2xl overflow-hidden group cursor-pointer border border-brand-border" onclick="window.open(document.getElementById('hero-link').href, '_blank')">
+                <img id="hero-img" src="" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Hero Image" onerror="this.src='https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&w=800'">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-8 md:p-12 w-full max-w-4xl z-10">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span id="hero-source" class="bg-brand-accent text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-sm shadow-md">SOURCE</span>
+                        <span id="hero-date" class="text-sm text-gray-300 font-medium tracking-wide">Date</span>
                     </div>
-                    <h2 id="hero-title" class="text-2xl sm:text-3xl lg:text-4xl font-bold font-sans text-white leading-tight tracking-tight hover:text-rmgold transition-colors duration-300">
-                        Loading latest world football news...
-                    </h2>
-                    <p id="hero-text" class="text-gray-300 text-sm sm:text-base leading-relaxed line-clamp-5">
-                        Please wait while we fetch the freshest content directly from major global football channels.
-                    </p>
-                    <div class="pt-4 border-t border-gray-700/50 flex items-center justify-between">
-                        <span class="text-xs text-gray-400">Auto-updates every 5 minutes</span>
-                        <a href="https://t.me/RealMadridNews1000" target="_blank" class="inline-flex items-center space-x-2 text-rmgold hover:text-white font-bold text-sm transition-colors group">
-                            <span>Read on Telegram</span>
-                            <svg class="h-4 w-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                    </div>
+                    <h2 id="hero-title" class="text-3xl md:text-5xl font-serif font-bold text-white leading-tight mb-4 group-hover:text-brand-accent transition-colors drop-shadow-lg">Hero Title</h2>
+                    <p id="hero-text" class="text-lg text-gray-200 line-clamp-2 md:line-clamp-3 drop-shadow-md">Hero Description</p>
+                    <a id="hero-link" href="#" target="_blank" class="hidden"></a>
                 </div>
             </div>
-        </section>
+        </div>
 
         <!-- Section Title -->
-        <div class="flex items-center justify-between mb-8">
-            <h3 class="font-cinzel text-xl sm:text-2xl font-bold tracking-wide border-l-4 border-rmgold pl-3">
-                More News Feed
-            </h3>
-            <span class="text-xs text-gray-400 uppercase tracking-widest">The Pulse of Global Football</span>
+        <div class="flex items-center justify-between mb-8 pb-4 border-b border-brand-border">
+            <h3 class="text-2xl font-bold text-white tracking-tight">Latest Headlines</h3>
+            <button id="refresh-btn" class="text-sm text-gray-400 hover:text-white transition-colors flex items-center space-x-2 bg-brand-card px-4 py-2 rounded-lg border border-brand-border hover:border-gray-500">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89M21 3v5h-5"></path></svg>
+                <span>Refresh Feed</span>
+            </button>
         </div>
 
         <!-- News Grid -->
-        <section id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Cards will be injected dynamically -->
-            <!-- Skeleton Loader -->
-            <div class="bg-rmcard animate-pulse rounded-2xl border border-gray-800 h-96"></div>
-            <div class="bg-rmcard animate-pulse rounded-2xl border border-gray-800 h-96"></div>
-            <div class="bg-rmcard animate-pulse rounded-2xl border border-gray-800 h-96"></div>
-        </section>
+        <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Loading Skeletons -->
+            <div class="bg-brand-card animate-pulse rounded-xl h-96 border border-brand-border"></div>
+            <div class="bg-brand-card animate-pulse rounded-xl h-96 border border-brand-border"></div>
+            <div class="bg-brand-card animate-pulse rounded-xl h-96 border border-brand-border"></div>
+            <div class="bg-brand-card animate-pulse rounded-xl h-96 border border-brand-border"></div>
+        </div>
+
     </main>
 
     <!-- Footer -->
-    <footer class="bg-rmdarkblue border-t border-rmgold/20 py-8 mt-16">
-        <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
-            <div class="flex justify-center items-center space-x-2">
-                <img src="logo.png" alt="Real Madrid Logo" class="h-8 w-auto opacity-70">
-                <span class="font-cinzel font-bold tracking-wider text-sm">FOOTBALL WORLDWIDE</span>
-            </div>
-            <p class="text-xs text-gray-500 max-w-md mx-auto">
-                Football Worldwide is a self-updating premium news aggregator. Content scraped from public channels for demonstration purposes.
+    <footer class="border-t border-brand-border bg-brand-card py-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="w-12 h-12 mx-auto bg-brand-border rounded-full flex items-center justify-center font-serif text-gray-400 font-bold mb-4 border border-gray-700">FW</div>
+            <p class="text-sm text-gray-500 max-w-lg mx-auto leading-relaxed">
+                Football Worldwide aggregates the latest news from top global sources like ESPN, BBC, and SkySports. Professional journalism delivered instantly.
             </p>
-            <p class="text-[10px] text-rmgold/60">
-                &copy; 2026 Football Worldwide. All Rights Reserved.
-            </p>
+            <p class="text-xs text-gray-600 mt-6">&copy; 2026 Football Worldwide. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
         const NEWS_FILE = 'news.json';
-        const REFRESH_INTERVAL = 300 * 1000; // 5 minutes in milliseconds
         let countdownSeconds = 300;
         let countdownTimer;
 
-        // Fetch news and update UI
         async function fetchNews() {
             try {
-                // Using a cache-busting timestamp to avoid cached JSON
                 const response = await fetch(`${NEWS_FILE}?t=${new Date().getTime()}`);
                 if (!response.ok) throw new Error('File not found');
-                
                 const data = await response.json();
                 if (data && data.length > 0) {
-                    document.getElementById('error-banner').classList.add('hidden');
                     updateUI(data);
-                } else {
-                    throw new Error('Empty data');
                 }
             } catch (err) {
-                console.warn('Failed to load news.json, using backup demo data:', err);
-                document.getElementById('error-banner').classList.remove('hidden');
+                console.warn('Failed to load news.json:', err);
                 
-                // Demo Data Fallback
-                const demoData = [
+                // Fallback demo data
+                const baseFallback = [
                     {
-                        "title": "Welcome to Football Worldwide!",
-                        "text": "This feed automatically displays the latest global soccer updates. Run `python scraper.py` in your terminal to scrape real posts and generate the live news.json file.",
-                        "image_url": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=80",
-                        "date": new Date().toLocaleString()
+                        "title": "Welcome to Football Worldwide Premium",
+                        "text": "This is a live news aggregator. The live feed couldn't be loaded (likely because you opened the file directly instead of via a web server). Once hosted on GitHub, real news from ESPN & BBC will appear here.",
+                        "image_url": "https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&w=800",
+                        "date": new Date().toLocaleString(),
+                        "source": "System",
+                        "link": "#"
                     },
                     {
-                        "title": "Champions League preparations reach fever pitch",
-                        "text": "Top clubs across Europe are holding their final training sessions ahead of the highly-anticipated matchday. Managers are finalizing their lineups.",
-                        "image_url": "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80",
-                        "date": new Date().toLocaleString()
+                        "title": "Mbappe's Next Chapter: What to Expect",
+                        "text": "The footballing world watches closely as one of the game's brightest stars prepares for his highly anticipated next career move.",
+                        "image_url": "https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=800",
+                        "date": new Date().toLocaleString(),
+                        "source": "ESPN FC Demo",
+                        "link": "#"
                     },
                     {
-                        "title": "Global summer transfer market heats up",
-                        "text": "Major clubs are starting negotiations for top-tier players. The transfer window promises massive updates and record-breaking moves.",
-                        "image_url": "https://images.unsplash.com/photo-1540747737956-37872404a821?auto=format&fit=crop&w=800&q=80",
-                        "date": new Date().toLocaleString()
+                        "title": "Champions League Finals Preview",
+                        "text": "An in-depth look at the tactical battles that will decide who lifts the most prestigious trophy in club football.",
+                        "image_url": "https://images.pexels.com/photos/209977/pexels-photo-209977.jpeg?auto=compress&cs=tinysrgb&w=800",
+                        "date": new Date().toLocaleString(),
+                        "source": "Sky Sports Demo",
+                        "link": "#"
+                    },
+                    {
+                        "title": "Summer Transfer Window Rumors",
+                        "text": "Clubs are already preparing massive bids for top talent across Europe. Who will make the biggest splash this summer?",
+                        "image_url": "https://images.pexels.com/photos/114296/pexels-photo-114296.jpeg?auto=compress&cs=tinysrgb&w=800",
+                        "date": new Date().toLocaleString(),
+                        "source": "BBC Sport Demo",
+                        "link": "#"
                     }
                 ];
-                updateUI(demoData);
+                
+                // Duplicate the items so the screen is completely filled with "a lot of data"
+                const fallbackData = [...baseFallback, ...baseFallback, ...baseFallback, ...baseFallback];
+                updateUI(fallbackData);
+                
+                // Show a small warning
+                if (!document.getElementById('local-warning')) {
+                    const warn = document.createElement('div');
+                    warn.id = 'local-warning';
+                    warn.className = 'fixed bottom-4 right-4 bg-yellow-500/90 text-black text-xs font-bold px-4 py-2 rounded-lg shadow-lg z-50';
+                    warn.innerText = 'Local Mode: Displaying demo data.';
+                    document.body.appendChild(warn);
+                }
             }
-            
-            // Reset countdown timer
             resetCountdown();
         }
 
-        // Update HTML elements with JSON data
         function updateUI(posts) {
             if (!posts || posts.length === 0) return;
 
-            // 1. Hero Section (First post)
+            // Update Hero
             const hero = posts[0];
             const heroSection = document.getElementById('hero-section');
             document.getElementById('hero-img').src = hero.image_url;
             document.getElementById('hero-title').innerText = hero.title;
-            document.getElementById('hero-text').innerText = hero.text;
+            document.getElementById('hero-text').innerText = hero.text || '';
             document.getElementById('hero-date').innerText = hero.date;
-            heroSection.classList.remove('opacity-0');
-            heroSection.classList.add('opacity-100');
+            document.getElementById('hero-source').innerText = hero.source || 'NEWS';
+            document.getElementById('hero-link').href = hero.link || '#';
+            heroSection.classList.remove('hidden');
 
-            // 2. News Grid (Rest of the posts)
+            // Update Grid
             const grid = document.getElementById('news-grid');
-            grid.innerHTML = ''; // Clear skeleton loader
-
+            grid.innerHTML = ''; 
+            
             const gridPosts = posts.slice(1);
-            if (gridPosts.length === 0) {
-                grid.innerHTML = `<div class="col-span-full text-center text-gray-500 py-8">No additional news items.</div>`;
-                return;
-            }
-
             gridPosts.forEach(post => {
-                const card = document.createElement('article');
-                card.className = "group bg-rmcard rounded-2xl overflow-hidden border border-gray-800 transition-all duration-300 hover:-translate-y-1 gold-glow flex flex-col justify-between";
+                const card = document.createElement('a');
+                card.href = post.link || '#';
+                card.target = '_blank';
+                card.className = "news-card bg-brand-card rounded-xl overflow-hidden border border-brand-border flex flex-col group cursor-pointer block";
                 
                 card.innerHTML = `
-                    <div>
-                        <!-- Card Image -->
-                        <div class="h-48 overflow-hidden relative">
-                            <img src="${post.image_url}" alt="${post.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                            <div class="absolute inset-0 bg-gradient-to-t from-rmdark/80 to-transparent"></div>
-                        </div>
-                        
-                        <!-- Card Content -->
-                        <div class="p-5 space-y-3">
-                            <div class="flex items-center space-x-2 text-[11px] text-rmgold font-semibold uppercase tracking-wider">
-                                <span>${post.date}</span>
-                            </div>
-                            <h4 class="text-lg font-bold text-white leading-snug line-clamp-2 group-hover:text-rmgold transition-colors duration-200">
-                                ${post.title}
-                            </h4>
-                            <p class="text-xs text-gray-300 leading-relaxed line-clamp-3">
-                                ${post.text}
-                            </p>
+                    <div class="h-48 overflow-hidden relative bg-brand-border">
+                        <img src="${post.image_url}" alt="" class="image-zoom w-full h-full object-cover" onerror="this.src='https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&w=800'">
+                        <div class="absolute top-3 left-3 bg-brand-accent/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded shadow-sm border border-white/10">
+                            ${post.source || 'Update'}
                         </div>
                     </div>
-                    
-                    <!-- Card Footer -->
-                    <div class="px-5 pb-5 pt-3 border-t border-gray-850 flex items-center justify-between">
-                        <span class="text-[10px] text-gray-400">Telegram News</span>
-                        <a href="https://t.me/RealMadridNews1000" target="_blank" class="text-xs text-rmgold group-hover:underline font-bold">Read post →</a>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <div class="text-[11px] text-gray-400 mb-2 font-medium tracking-wide uppercase">${post.date}</div>
+                        <h4 class="text-base font-bold text-gray-100 leading-snug line-clamp-3 mb-3 group-hover:text-brand-accent transition-colors">
+                            ${post.title}
+                        </h4>
+                        <p class="text-sm text-gray-400 leading-relaxed line-clamp-3 mt-auto">
+                            ${post.text || ''}
+                        </p>
                     </div>
                 `;
                 grid.appendChild(card);
             });
         }
 
-        // Countdown Timer Logic
         function resetCountdown() {
             clearInterval(countdownTimer);
             countdownSeconds = 300;
             updateTimerText();
-
             countdownTimer = setInterval(() => {
                 countdownSeconds--;
-                if (countdownSeconds <= 0) {
-                    fetchNews();
-                } else {
-                    updateTimerText();
-                }
+                if (countdownSeconds <= 0) fetchNews();
+                else updateTimerText();
             }, 1000);
         }
 
         function updateTimerText() {
-            const minutes = Math.floor(countdownSeconds / 60);
-            const seconds = countdownSeconds % 60;
-            const formattedSec = seconds < 10 ? '0' + seconds : seconds;
-            document.getElementById('update-timer').innerText = `Next auto-refresh: ${minutes}:${formattedSec}`;
+            const m = Math.floor(countdownSeconds / 60);
+            const s = countdownSeconds % 60;
+            document.getElementById('update-timer').innerText = `Update in ${m}:${s < 10 ? '0'+s : s}`;
         }
 
-        // Event Listeners
-        document.getElementById('refresh-btn').addEventListener('click', () => {
-            const btn = document.getElementById('refresh-btn');
-            btn.classList.add('animate-spin');
-            fetchNews().finally(() => {
-                setTimeout(() => btn.classList.remove('animate-spin'), 600);
-            });
+        document.getElementById('refresh-btn').addEventListener('click', (e) => {
+            const icon = e.currentTarget.querySelector('svg');
+            icon.classList.add('animate-spin');
+            fetchNews().finally(() => setTimeout(() => icon.classList.remove('animate-spin'), 1000));
         });
 
-        // Initialize on load
         window.addEventListener('DOMContentLoaded', fetchNews);
     </script>
 </body>
