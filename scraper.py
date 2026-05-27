@@ -1,142 +1,201 @@
 import os
-import re
-import json
 import time
+import json
 import requests
+import feedparser
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-# Settings
-CHANNEL_URL = "https://t.me/s/SkySportsNews"
-JSON_FILE = "news.json"
+# === AI News RSS Feeds ===
+RSS_FEEDS = [
+    {"name": "TechCrunch AI", "url": "https://techcrunch.com/category/artificial-intelligence/feed/"},
+    {"name": "The Verge", "url": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml"},
+    {"name": "Ars Technica", "url": "https://feeds.arstechnica.com/arstechnica/technology-lab"},
+    {"name": "VentureBeat", "url": "https://venturebeat.com/category/ai/feed/"},
+]
 
-def scrape_telegram_news():
-    print(f"Scraping latest news from {CHANNEL_URL}...")
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
-    }
-    
+JSON_FILE = "news.json"
+DEFAULT_FALLBACK_IMAGE = "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80"
+
+# Keywords to filter AI-related articles (especially for general feeds like Ars Technica)
+AI_KEYWORDS = [
+    "ai", "artificial intelligence", "machine learning", "deep learning",
+    "neural network", "gpt", "llm", "large language model", "chatgpt",
+    "openai", "deepmind", "anthropic", "claude", "gemini", "copilot",
+    "midjourney", "stable diffusion", "generative ai", "transformer",
+    "nlp", "natural language", "computer vision", "robotics", "robot",
+    "autonomous", "self-driving", "reinforcement learning", "diffusion model",
+    "foundation model", "multimodal", "text-to-image", "text-to-video",
+    "ai safety", "alignment", "agi", "superintelligence", "ml model",
+    "training data", "inference", "gpu", "nvidia", "tensor", "pytorch",
+    "tensorflow", "hugging face", "meta ai", "google ai", "microsoft ai",
+    "ai startup", "ai regulation", "ai act", "ai chip", "ai agent",
+]
+
+
+def is_ai_related(title, description):
+    """Check if article is AI-related based on keywords in title/description."""
+    text = f"{title} {description}".lower()
+    return any(keyword in text for keyword in AI_KEYWORDS)
+
+
+def get_og_image(url):
+    """Scrapes the actual article page to find the main meta image (og:image)."""
     try:
-        response = requests.get(CHANNEL_URL, headers=headers, timeout=15)
-        if response.status_code != 200:
-            print(f"Error: Status code {response.status_code}")
-            return False
-            
-        soup = BeautifulSoup(response.text, "html.parser")
-        # Find all message blocks
-        messages = soup.find_all("div", class_="tgme_widget_message")
-        
-        posts = []
-        # Process in reverse to get newest first if they are ordered chronologically
-        for msg in reversed(messages):
-            if len(posts) >= 10:
-                break
-                
-            # 1. Text content
-            text_el = msg.find("div", class_="tgme_widget_message_text")
-            if not text_el:
-                continue # Skip if no text
-                
-            text = text_el.get_text(separator="\n").strip()
-            # Title is the first line or first 60 chars
-            lines = [l.strip() for l in text.split("\n") if l.strip()]
-            title = lines[0] if lines else "Real Madrid News Update"
-            if len(title) > 80:
-                title = title[:77] + "..."
-            
-            # 2. Image URL
-            img_url = None
-            photo_el = msg.find("a", class_="tgme_widget_message_photo_wrap")
-            if photo_el and "style" in photo_el.attrs:
-                style_attr = photo_el["style"]
-                match = re.search(r"background-image:url\(['\"]?(.*?)['\"]?\)", style_attr)
-                if match:
-                    img_url = match.group(1)
-            
-            # 3. Date
-            date_el = msg.find("time", class_="time")
-            post_date = ""
-            if date_el and "datetime" in date_el.attrs:
-                dt_str = date_el["datetime"]
-                try:
-                    # e.g., 2026-05-26T09:18:20+00:00
-                    dt = datetime.fromisoformat(dt_str)
-                    post_date = dt.strftime("%Y-%m-%d %H:%M")
-                except Exception:
-                    post_date = dt_str
-            else:
-                post_date = datetime.now().strftime("%Y-%m-%d %H:%M")
-                
-            posts.append({
-                "title": title,
-                "text": text,
-                "image_url": img_url or "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=800&q=80",
-                "date": post_date
-            })
-            
-        if not posts:
-            print("No posts found. Using fallback RSS/Mock data...")
-            # Fallback to prevent empty site
-            posts = get_fallback_posts()
-            
-        with open(JSON_FILE, "w", encoding="utf-8") as f:
-            json.dump(posts, f, ensure_ascii=False, indent=4)
-            
-        print(f"Successfully saved {len(posts)} posts to {JSON_FILE}")
-        return True
-        
-    except Exception as e:
-        print(f"Exception occurred during scraping: {e}")
-        # Fallback
+        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+        res = requests.get(url, timeout=8, headers=headers)
+        if res.status_code == 200:
+            soup = BeautifulSoup(res.text, "html.parser")
+            meta = soup.find("meta", property="og:image")
+            if meta and meta.get("content"):
+                return meta.get("content")
+    except Exception:
+        pass
+    return None
+
+
+def fetch_rss_news():
+    print("=" * 50)
+    print("AI Pulse — Scraping latest AI news from RSS feeds...")
+    print("=" * 50)
+    all_posts = []
+
+    for feed_info in RSS_FEEDS:
+        print(f"\n📡 Fetching from {feed_info['name']}...")
         try:
-            with open(JSON_FILE, "w", encoding="utf-8") as f:
-                json.dump(get_fallback_posts(), f, ensure_ascii=False, indent=4)
-            print("Saved fallback posts due to scraper error.")
-        except Exception:
-            pass
-        return False
+            feed = feedparser.parse(feed_info['url'])
+            count = 0
+            for entry in feed.entries[:20]:  # Check top 20 from each feed
+
+                # Extract description
+                description = ""
+                if hasattr(entry, 'description'):
+                    soup = BeautifulSoup(entry.description, "html.parser")
+                    description = soup.get_text(separator=" ").strip()
+
+                # For general feeds, filter for AI-related content only
+                if feed_info['name'] in ['Ars Technica']:
+                    if not is_ai_related(entry.title, description):
+                        continue
+
+                image_url = DEFAULT_FALLBACK_IMAGE
+
+                # 1. Extract image from standard media:content
+                if hasattr(entry, 'media_content') and len(entry.media_content) > 0:
+                    image_url = entry.media_content[0].get('url', image_url)
+                elif hasattr(entry, 'media_thumbnail') and len(entry.media_thumbnail) > 0:
+                    image_url = entry.media_thumbnail[0].get('url', image_url)
+                elif hasattr(entry, 'links'):
+                    for link in entry.links:
+                        if link.get('type') and link.get('type').startswith('image'):
+                            image_url = link.get('href', image_url)
+
+                # 2. Extract image from description HTML
+                if image_url == DEFAULT_FALLBACK_IMAGE and hasattr(entry, 'description'):
+                    soup_img = BeautifulSoup(entry.description, "html.parser")
+                    img = soup_img.find('img')
+                    if img and img.get('src'):
+                        image_url = img.get('src')
+
+                # 3. Extract from content:encoded
+                if image_url == DEFAULT_FALLBACK_IMAGE and hasattr(entry, 'content'):
+                    for content in entry.content:
+                        soup_content = BeautifulSoup(content.get('value', ''), "html.parser")
+                        img = soup_content.find('img')
+                        if img and img.get('src'):
+                            image_url = img.get('src')
+                            break
+
+                # 4. Scrape og:image from article page as last resort
+                if image_url == DEFAULT_FALLBACK_IMAGE and hasattr(entry, 'link'):
+                    og_img = get_og_image(entry.link)
+                    if og_img:
+                        image_url = og_img
+
+                # Date parsing
+                dt = datetime.now()
+                if hasattr(entry, 'published_parsed') and entry.published_parsed:
+                    try:
+                        dt = datetime.fromtimestamp(time.mktime(entry.published_parsed))
+                    except Exception:
+                        pass
+                elif hasattr(entry, 'updated_parsed') and entry.updated_parsed:
+                    try:
+                        dt = datetime.fromtimestamp(time.mktime(entry.updated_parsed))
+                    except Exception:
+                        pass
+
+                post = {
+                    "id": entry.get('id', entry.link),
+                    "title": entry.title,
+                    "text": description[:300] if description else "",
+                    "link": entry.link,
+                    "image_url": image_url,
+                    "date": dt.strftime("%Y-%m-%d %H:%M"),
+                    "source": feed_info['name'],
+                    "timestamp": dt.timestamp()
+                }
+                all_posts.append(post)
+                count += 1
+
+            print(f"   ✅ Got {count} articles from {feed_info['name']}")
+        except Exception as e:
+            print(f"   ❌ Error fetching {feed_info['name']}: {e}")
+
+    # Sort posts by date (newest first)
+    all_posts.sort(key=lambda x: x['timestamp'], reverse=True)
+
+    # Remove duplicates by title similarity
+    seen_titles = set()
+    unique_posts = []
+    for post in all_posts:
+        title_key = post['title'].lower().strip()[:60]
+        if title_key not in seen_titles:
+            seen_titles.add(title_key)
+            unique_posts.append(post)
+
+    # Keep top 50 for the website
+    top_posts = unique_posts[:50]
+
+    # Remove timestamp before saving
+    for post in top_posts:
+        if 'timestamp' in post:
+            del post['timestamp']
+
+    if not top_posts:
+        print("\n⚠️  No posts found. Using fallback data...")
+        top_posts = get_fallback_posts()
+
+    with open(JSON_FILE, "w", encoding="utf-8") as f:
+        json.dump(top_posts, f, ensure_ascii=False, indent=4)
+
+    print(f"\n🚀 Successfully saved {len(top_posts)} AI news articles to {JSON_FILE}")
+    return True
+
 
 def get_fallback_posts():
     return [
         {
-            "title": "Welcome to the Premium Real Madrid News Feed!",
-            "text": "This feed automatically displays the latest updates, match analysis, and transfer news about the greatest club in the world. Hala Madrid!",
-            "image_url": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=80",
-            "date": datetime.now().strftime("%Y-%m-%d %H:%M")
-        },
-        {
-            "title": "Mbappe Shines in Training Ahead of Next Clash",
-            "text": "Kylian Mbappe was seen scoring brilliant goals in the training session today as Real Madrid prepares for the upcoming match. The squad looks highly motivated.",
-            "image_url": "https://images.unsplash.com/photo-1540747737956-37872404a821?auto=format&fit=crop&w=800&q=80",
-            "date": datetime.now().strftime("%Y-%m-%d %H:%M")
-        },
-        {
-            "title": "Ancelotti: 'We are ready for the final matches'",
-            "text": "Carlo Ancelotti addressed the media in today's press conference: 'The team is physically in great shape and we are fully focused on taking home the trophies.'",
-            "image_url": "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80",
-            "date": datetime.now().strftime("%Y-%m-%d %H:%M")
-        },
-        {
-            "title": "Santiago Bernabeu Renovation Updates",
-            "text": "The legendary stadium is looking more futuristic than ever. Check out the latest pictures of the new retractable pitch technology and 360-degree screen.",
-            "image_url": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
-            "date": datetime.now().strftime("%Y-%m-%d %H:%M")
+            "id": "fallback-1",
+            "title": "Welcome to AI Pulse — Your Premium AI News Feed",
+            "text": "AI Pulse automatically aggregates the latest AI news, breakthroughs, research papers, and startup updates from top tech sources worldwide.",
+            "link": "https://openai.com",
+            "image_url": DEFAULT_FALLBACK_IMAGE,
+            "date": datetime.now().strftime("%Y-%m-%d %H:%M"),
+            "source": "AI Pulse"
         }
     ]
 
+
 if __name__ == "__main__":
-    # Run once immediately
-    scrape_telegram_news()
-    
-    # Check if running inside GitHub Actions
+    fetch_rss_news()
     if os.environ.get("GITHUB_ACTIONS") == "true":
-        print("Running inside GitHub Actions. Exiting after a single scrape.")
+        print("\n📦 Running inside GitHub Actions. Exiting after single scrape.")
     else:
-        # Loop to run every 10 minutes (600 seconds)
-        print("Scraper is now running in loop mode. Press Ctrl+C to stop.")
+        print("\n🔄 Scraper running in loop mode (every 5 minutes). Press Ctrl+C to stop.")
         try:
             while True:
-                time.sleep(600)
-                scrape_telegram_news()
+                time.sleep(300)
+                fetch_rss_news()
         except KeyboardInterrupt:
-            print("Scraper stopped by user.")
+            print("\n🛑 Scraper stopped by user.")

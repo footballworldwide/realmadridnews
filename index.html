@@ -3,25 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Football News - Professional Aggregator</title>
+    <title>AI Pulse — Premium AI News Aggregator</title>
+    <meta name="description" content="AI Pulse delivers the latest artificial intelligence news, breakthroughs, and research from top sources like TechCrunch, The Verge, Ars Technica, and VentureBeat. Updated every 5 minutes.">
+    <meta property="og:title" content="AI Pulse — Premium AI News Aggregator">
+    <meta property="og:description" content="Real-time AI news from the world's top tech sources. Breakthroughs, models, startups, and research — all in one place.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
                         brand: {
-                            dark: '#0A0A0A',
-                            card: '#141414',
-                            border: '#2A2A2A',
-                            accent: '#3B82F6',
-                            text: '#E5E5E5'
+                            dark: '#06060a',
+                            card: '#0d0d14',
+                            border: '#1a1a2e',
+                            accent: '#8b5cf6',
+                            cyan: '#06b6d4',
+                            text: '#e2e8f0',
+                            muted: '#64748b'
                         }
                     }
                 }
@@ -29,56 +36,149 @@
         }
     </script>
     <style>
+        * { box-sizing: border-box; }
         body {
-            background-color: #0A0A0A;
-            color: #E5E5E5;
+            background-color: #06060a;
+            color: #e2e8f0;
         }
+
+        /* Animated gradient background */
+        .hero-gradient {
+            background: linear-gradient(135deg, #06060a 0%, #0f0a1e 30%, #06060a 50%, #0a1628 70%, #06060a 100%);
+            position: relative;
+        }
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at 20% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 50%, rgba(6, 182, 212, 0.06) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* Glass navigation */
         .glass-nav {
-            background: rgba(10, 10, 10, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(6, 6, 10, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.15);
         }
+
+        /* Card styles */
         .news-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(145deg, #0d0d14 0%, #0a0a12 100%);
         }
         .news-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-            border-color: rgba(59, 130, 246, 0.5);
+            transform: translateY(-6px);
+            box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.2),
+                        0 0 0 1px rgba(139, 92, 246, 0.3);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+        .news-card:hover .card-glow {
+            opacity: 1;
+        }
+        .card-glow {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.6), rgba(6, 182, 212, 0.6), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
         .image-zoom {
             transition: transform 0.7s ease;
         }
         .news-card:hover .image-zoom {
-            transform: scale(1.05);
+            transform: scale(1.08);
+        }
+
+        /* Source badge colors */
+        .source-techcrunch { background: linear-gradient(135deg, #00d084, #0da574); }
+        .source-verge { background: linear-gradient(135deg, #e04e39, #c73c2d); }
+        .source-arstechnica { background: linear-gradient(135deg, #ff6600, #e05500); }
+        .source-venturebeat { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
+        .source-default { background: linear-gradient(135deg, #8b5cf6, #6366f1); }
+
+        /* Pulse animation */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(139, 92, 246, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.7); }
+        }
+        .pulse-logo {
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #06060a; }
+        ::-webkit-scrollbar-thumb { background: #1a1a2e; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8b5cf6; }
+
+        /* Skeleton shimmer */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .skeleton {
+            background: linear-gradient(90deg, #0d0d14 25%, #151520 50%, #0d0d14 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        /* Grid line decorations */
+        .grid-lines {
+            background-image:
+                linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* Category filter */
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
+        .filter-btn.active {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.2));
+            border-color: rgba(139, 92, 246, 0.5);
+            color: #c4b5fd;
+        }
+
+        /* Hero card overlay */
+        .hero-overlay {
+            background: linear-gradient(to top, #06060a 0%, rgba(6,6,10,0.85) 40%, rgba(6,6,10,0.4) 70%, transparent 100%);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col font-sans selection:bg-brand-accent selection:text-white">
+<body class="min-h-screen flex flex-col font-sans selection:bg-brand-accent/30 selection:text-white hero-gradient grid-lines">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass-nav top-0">
+    <nav class="fixed w-full z-50 glass-nav top-0" id="main-nav">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex items-center space-x-4">
-                    <div class="w-10 h-10 rounded-full bg-brand-accent flex items-center justify-center font-serif text-white font-bold text-xl shadow-[0_0_15px_rgba(59,130,246,0.5)]">
-                        FW
+            <div class="flex justify-between items-center h-16 md:h-20">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-gradient-to-br from-brand-accent to-brand-cyan flex items-center justify-center font-mono text-white font-bold text-sm md:text-base pulse-logo shadow-lg">
+                        AI
                     </div>
                     <div>
-                        <h1 class="text-xl font-bold tracking-tight text-white uppercase">Football<span class="text-brand-accent">Worldwide</span></h1>
-                        <p class="text-[10px] uppercase tracking-widest text-gray-400">Premium News Aggregator</p>
+                        <h1 class="text-lg md:text-xl font-extrabold tracking-tight text-white">
+                            AI<span class="bg-gradient-to-r from-brand-accent to-brand-cyan bg-clip-text text-transparent">Pulse</span>
+                        </h1>
+                        <p class="text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-brand-muted font-medium">Real-time AI Intelligence</p>
                     </div>
                 </div>
-                <div class="flex items-center space-x-6">
-                    <div class="hidden md:flex items-center space-x-2 bg-brand-card border border-brand-border px-3 py-1.5 rounded-full text-xs">
+                <div class="flex items-center space-x-3 md:space-x-5">
+                    <div class="hidden sm:flex items-center space-x-2 bg-brand-card border border-brand-border px-3 py-1.5 rounded-full text-xs">
                         <span class="relative flex h-2 w-2">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                         </span>
-                        <span id="update-timer" class="text-gray-400 font-medium">Live Updates</span>
+                        <span id="update-timer" class="text-brand-muted font-mono font-medium text-[11px]">Live</span>
                     </div>
-                    <a href="https://t.me/FOOTBALLWORLDWIDE1" target="_blank" class="text-sm font-semibold text-white bg-[#0088cc] hover:bg-[#0077b3] px-5 py-2.5 rounded-lg transition-colors shadow-lg">
-                        Join Telegram
+                    <a href="https://t.me/AINEWSHUB0" target="_blank" id="telegram-link"
+                       class="text-xs md:text-sm font-semibold text-white bg-gradient-to-r from-brand-accent to-indigo-600 hover:from-brand-accent hover:to-purple-500 px-4 md:px-5 py-2 md:py-2.5 rounded-xl transition-all shadow-lg shadow-brand-accent/20 hover:shadow-brand-accent/40 hover:scale-105 active:scale-95">
+                        <span class="hidden md:inline">📡 Join Channel</span>
+                        <span class="md:hidden">📡 Join</span>
                     </a>
                 </div>
             </div>
@@ -86,64 +186,121 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 w-full">
-        
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-28 w-full relative">
+
         <!-- Hero Section -->
-        <div id="hero-section" class="mb-12 hidden">
-            <div class="relative w-full h-[500px] rounded-2xl overflow-hidden group cursor-pointer border border-brand-border" onclick="window.open(document.getElementById('hero-link').href, '_blank')">
-                <img id="hero-img" src="" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Hero Image" onerror="this.src='https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&w=800'">
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
-                <div class="absolute bottom-0 left-0 p-8 md:p-12 w-full max-w-4xl z-10">
-                    <div class="flex items-center space-x-3 mb-4">
-                        <span id="hero-source" class="bg-brand-accent text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-sm shadow-md">SOURCE</span>
-                        <span id="hero-date" class="text-sm text-gray-300 font-medium tracking-wide">Date</span>
+        <div id="hero-section" class="mb-10 md:mb-14 hidden">
+            <div class="relative w-full h-[300px] sm:h-[400px] md:h-[480px] rounded-2xl overflow-hidden group cursor-pointer border border-brand-border hover:border-brand-accent/40 transition-all duration-500"
+                 onclick="window.open(document.getElementById('hero-link').href, '_blank')">
+                <img id="hero-img" src="" class="absolute inset-0 w-full h-full object-cover image-zoom" alt="Featured AI News"
+                     onerror="this.src='https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80'">
+                <div class="absolute inset-0 hero-overlay"></div>
+                <!-- Decorative corner accents -->
+                <div class="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-brand-accent/30 rounded-tl-2xl"></div>
+                <div class="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-brand-cyan/30 rounded-br-2xl"></div>
+                <div class="absolute bottom-0 left-0 p-6 sm:p-8 md:p-10 w-full max-w-3xl z-10">
+                    <div class="flex items-center space-x-3 mb-3 md:mb-4">
+                        <span id="hero-source" class="source-default text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-md shadow-md">SOURCE</span>
+                        <span id="hero-date" class="text-xs text-gray-400 font-mono tracking-wide">Date</span>
                     </div>
-                    <h2 id="hero-title" class="text-3xl md:text-5xl font-serif font-bold text-white leading-tight mb-4 group-hover:text-brand-accent transition-colors drop-shadow-lg">Hero Title</h2>
-                    <p id="hero-text" class="text-lg text-gray-200 line-clamp-2 md:line-clamp-3 drop-shadow-md">Hero Description</p>
+                    <h2 id="hero-title" class="text-xl sm:text-2xl md:text-4xl font-extrabold text-white leading-tight mb-3 group-hover:text-brand-accent transition-colors duration-300 drop-shadow-lg">Hero Title</h2>
+                    <p id="hero-text" class="text-sm md:text-base text-gray-300 line-clamp-2 md:line-clamp-3 leading-relaxed drop-shadow-md">Hero Description</p>
                     <a id="hero-link" href="#" target="_blank" class="hidden"></a>
                 </div>
             </div>
         </div>
 
-        <!-- Section Title -->
-        <div class="flex items-center justify-between mb-8 pb-4 border-b border-brand-border">
-            <h3 class="text-2xl font-bold text-white tracking-tight">Latest Headlines</h3>
-            <button id="refresh-btn" class="text-sm text-gray-400 hover:text-white transition-colors flex items-center space-x-2 bg-brand-card px-4 py-2 rounded-lg border border-brand-border hover:border-gray-500">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89M21 3v5h-5"></path></svg>
-                <span>Refresh Feed</span>
-            </button>
+        <!-- Section Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 md:mb-8 gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-1 h-8 bg-gradient-to-b from-brand-accent to-brand-cyan rounded-full"></div>
+                <div>
+                    <h3 class="text-xl md:text-2xl font-bold text-white tracking-tight">Latest AI Headlines</h3>
+                    <p class="text-xs text-brand-muted mt-0.5 font-mono" id="post-count">Loading...</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button id="refresh-btn" class="text-xs text-brand-muted hover:text-white transition-all flex items-center space-x-2 bg-brand-card px-4 py-2.5 rounded-xl border border-brand-border hover:border-brand-accent/50 hover:shadow-lg hover:shadow-brand-accent/10 active:scale-95">
+                    <svg id="refresh-icon" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89M21 3v5h-5"></path></svg>
+                    <span>Refresh</span>
+                </button>
+            </div>
         </div>
 
         <!-- News Grid -->
-        <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div id="news-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6">
             <!-- Loading Skeletons -->
-            <div class="bg-brand-card animate-pulse rounded-xl h-96 border border-brand-border"></div>
-            <div class="bg-brand-card animate-pulse rounded-xl h-96 border border-brand-border"></div>
-            <div class="bg-brand-card animate-pulse rounded-xl h-96 border border-brand-border"></div>
-            <div class="bg-brand-card animate-pulse rounded-xl h-96 border border-brand-border"></div>
+            <div class="skeleton rounded-2xl h-[380px] border border-brand-border"></div>
+            <div class="skeleton rounded-2xl h-[380px] border border-brand-border"></div>
+            <div class="skeleton rounded-2xl h-[380px] border border-brand-border"></div>
+            <div class="skeleton rounded-2xl h-[380px] border border-brand-border"></div>
+            <div class="skeleton rounded-2xl h-[380px] border border-brand-border hidden sm:block"></div>
+            <div class="skeleton rounded-2xl h-[380px] border border-brand-border hidden lg:block"></div>
+            <div class="skeleton rounded-2xl h-[380px] border border-brand-border hidden xl:block"></div>
+            <div class="skeleton rounded-2xl h-[380px] border border-brand-border hidden xl:block"></div>
         </div>
 
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-brand-border bg-brand-card py-12 mt-auto">
+    <footer class="border-t border-brand-border bg-brand-card/50 py-10 md:py-14 mt-auto relative">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-accent/30 to-transparent"></div>
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="w-12 h-12 mx-auto bg-brand-border rounded-full flex items-center justify-center font-serif text-gray-400 font-bold mb-4 border border-gray-700">FW</div>
-            <p class="text-sm text-gray-500 max-w-lg mx-auto leading-relaxed">
-                Football Worldwide aggregates the latest news from top global sources like ESPN, BBC, and SkySports. Professional journalism delivered instantly.
+            <div class="flex items-center justify-center space-x-2 mb-4">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-accent/20 to-brand-cyan/20 flex items-center justify-center font-mono text-brand-accent font-bold text-xs border border-brand-border">AI</div>
+                <span class="font-bold text-white">AI<span class="text-brand-accent">Pulse</span></span>
+            </div>
+            <p class="text-sm text-brand-muted max-w-lg mx-auto leading-relaxed">
+                AI Pulse aggregates the latest artificial intelligence news from top sources including TechCrunch, The Verge, Ars Technica, and VentureBeat. Auto-updated every 5 minutes.
             </p>
-            <p class="text-xs text-gray-600 mt-6">&copy; 2026 Football Worldwide. All rights reserved.</p>
+            <div class="flex items-center justify-center space-x-4 mt-6 text-xs text-gray-600">
+                <span>&copy; 2026 AI Pulse</span>
+                <span>·</span>
+                <span class="font-mono">v2.0</span>
+                <span>·</span>
+                <a href="https://t.me/AINEWSHUB0" target="_blank" class="text-brand-accent/60 hover:text-brand-accent transition-colors">Telegram</a>
+            </div>
         </div>
     </footer>
 
     <script>
         const NEWS_FILE = 'news.json';
-        let countdownSeconds = 300;
+        const REFRESH_INTERVAL = 300; // 5 minutes in seconds
+        let countdownSeconds = REFRESH_INTERVAL;
         let countdownTimer;
+
+        function getSourceClass(source) {
+            const s = (source || '').toLowerCase();
+            if (s.includes('techcrunch')) return 'source-techcrunch';
+            if (s.includes('verge')) return 'source-verge';
+            if (s.includes('ars')) return 'source-arstechnica';
+            if (s.includes('venturebeat') || s.includes('venture')) return 'source-venturebeat';
+            return 'source-default';
+        }
+
+        function formatDate(dateStr) {
+            try {
+                const d = new Date(dateStr);
+                if (isNaN(d.getTime())) return dateStr;
+                const now = new Date();
+                const diffMs = now - d;
+                const diffMins = Math.floor(diffMs / 60000);
+                const diffHours = Math.floor(diffMs / 3600000);
+                const diffDays = Math.floor(diffMs / 86400000);
+
+                if (diffMins < 1) return 'Just now';
+                if (diffMins < 60) return `${diffMins}m ago`;
+                if (diffHours < 24) return `${diffHours}h ago`;
+                if (diffDays < 7) return `${diffDays}d ago`;
+                return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            } catch {
+                return dateStr;
+            }
+        }
 
         async function fetchNews() {
             try {
-                const response = await fetch(`${NEWS_FILE}?t=${new Date().getTime()}`);
+                const response = await fetch(`${NEWS_FILE}?t=${Date.now()}`);
                 if (!response.ok) throw new Error('File not found');
                 const data = await response.json();
                 if (data && data.length > 0) {
@@ -151,53 +308,58 @@
                 }
             } catch (err) {
                 console.warn('Failed to load news.json:', err);
-                
-                // Fallback demo data
+
                 const baseFallback = [
                     {
-                        "title": "Welcome to Football Worldwide Premium",
-                        "text": "This is a live news aggregator. The live feed couldn't be loaded (likely because you opened the file directly instead of via a web server). Once hosted on GitHub, real news from ESPN & BBC will appear here.",
-                        "image_url": "https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&w=800",
-                        "date": new Date().toLocaleString(),
-                        "source": "System",
+                        "title": "Welcome to AI Pulse — Your Premium AI News Hub",
+                        "text": "AI Pulse aggregates real-time artificial intelligence news from TechCrunch, The Verge, Ars Technica, and VentureBeat. Once deployed, live news will appear here automatically.",
+                        "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
+                        "date": new Date().toISOString(),
+                        "source": "AI Pulse",
                         "link": "#"
                     },
                     {
-                        "title": "Mbappe's Next Chapter: What to Expect",
-                        "text": "The footballing world watches closely as one of the game's brightest stars prepares for his highly anticipated next career move.",
-                        "image_url": "https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=800",
-                        "date": new Date().toLocaleString(),
-                        "source": "ESPN FC Demo",
+                        "title": "GPT-5 Sets New Benchmarks in Reasoning and Multimodal Tasks",
+                        "text": "OpenAI's latest model demonstrates unprecedented performance across coding, mathematics, and visual understanding benchmarks, marking a significant leap in AI capabilities.",
+                        "image_url": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80",
+                        "date": new Date().toISOString(),
+                        "source": "TechCrunch AI",
                         "link": "#"
                     },
                     {
-                        "title": "Champions League Finals Preview",
-                        "text": "An in-depth look at the tactical battles that will decide who lifts the most prestigious trophy in club football.",
-                        "image_url": "https://images.pexels.com/photos/209977/pexels-photo-209977.jpeg?auto=compress&cs=tinysrgb&w=800",
-                        "date": new Date().toLocaleString(),
-                        "source": "Sky Sports Demo",
+                        "title": "Google DeepMind Unveils New Approach to Artificial General Intelligence",
+                        "text": "DeepMind researchers publish groundbreaking paper on scalable architectures that could pave the way toward more general AI systems.",
+                        "image_url": "https://images.unsplash.com/photo-1555255707-c07966088b7b?w=800&q=80",
+                        "date": new Date().toISOString(),
+                        "source": "The Verge",
                         "link": "#"
                     },
                     {
-                        "title": "Summer Transfer Window Rumors",
-                        "text": "Clubs are already preparing massive bids for top talent across Europe. Who will make the biggest splash this summer?",
-                        "image_url": "https://images.pexels.com/photos/114296/pexels-photo-114296.jpeg?auto=compress&cs=tinysrgb&w=800",
-                        "date": new Date().toLocaleString(),
-                        "source": "BBC Sport Demo",
+                        "title": "AI Startups Raise Record $15B in Q2 2026",
+                        "text": "Venture capital funding for AI companies hits an all-time high, with major investments in robotics, healthcare AI, and autonomous systems.",
+                        "image_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+                        "date": new Date().toISOString(),
+                        "source": "VentureBeat",
+                        "link": "#"
+                    },
+                    {
+                        "title": "Europe's AI Act: What Companies Need to Know",
+                        "text": "The European Union's comprehensive AI regulation is now in full effect. Here's how it impacts tech companies, developers, and end users worldwide.",
+                        "image_url": "https://images.unsplash.com/photo-1529236183275-4fdcf2bc987e?w=800&q=80",
+                        "date": new Date().toISOString(),
+                        "source": "Ars Technica",
                         "link": "#"
                     }
                 ];
-                
-                // Duplicate the items so the screen is completely filled with "a lot of data"
-                const fallbackData = [...baseFallback, ...baseFallback, ...baseFallback, ...baseFallback];
+
+                const fallbackData = [...baseFallback, ...baseFallback.slice(1), ...baseFallback.slice(1)];
                 updateUI(fallbackData);
-                
-                // Show a small warning
+
                 if (!document.getElementById('local-warning')) {
                     const warn = document.createElement('div');
                     warn.id = 'local-warning';
-                    warn.className = 'fixed bottom-4 right-4 bg-yellow-500/90 text-black text-xs font-bold px-4 py-2 rounded-lg shadow-lg z-50';
-                    warn.innerText = 'Local Mode: Displaying demo data.';
+                    warn.className = 'fixed bottom-4 right-4 bg-brand-accent/90 backdrop-blur-sm text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-lg z-50 font-mono border border-white/10';
+                    warn.innerText = '⚡ Local Mode — Demo Data';
                     document.body.appendChild(warn);
                 }
             }
@@ -213,37 +375,53 @@
             document.getElementById('hero-img').src = hero.image_url;
             document.getElementById('hero-title').innerText = hero.title;
             document.getElementById('hero-text').innerText = hero.text || '';
-            document.getElementById('hero-date').innerText = hero.date;
-            document.getElementById('hero-source').innerText = hero.source || 'NEWS';
+            document.getElementById('hero-date').innerText = formatDate(hero.date);
+            const heroSource = document.getElementById('hero-source');
+            heroSource.innerText = hero.source || 'AI NEWS';
+            heroSource.className = `${getSourceClass(hero.source)} text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-md shadow-md`;
             document.getElementById('hero-link').href = hero.link || '#';
             heroSection.classList.remove('hidden');
 
             // Update Grid
             const grid = document.getElementById('news-grid');
-            grid.innerHTML = ''; 
-            
+            grid.innerHTML = '';
+
             const gridPosts = posts.slice(1);
-            gridPosts.forEach(post => {
+            document.getElementById('post-count').innerText = `${posts.length} articles · Auto-refreshes every 5 min`;
+
+            gridPosts.forEach((post, index) => {
                 const card = document.createElement('a');
                 card.href = post.link || '#';
                 card.target = '_blank';
-                card.className = "news-card bg-brand-card rounded-xl overflow-hidden border border-brand-border flex flex-col group cursor-pointer block";
-                
+                card.className = "news-card rounded-2xl overflow-hidden border border-brand-border flex flex-col group cursor-pointer relative";
+                card.style.animationDelay = `${index * 50}ms`;
+
+                const sourceClass = getSourceClass(post.source);
+
                 card.innerHTML = `
-                    <div class="h-48 overflow-hidden relative bg-brand-border">
-                        <img src="${post.image_url}" alt="" class="image-zoom w-full h-full object-cover" onerror="this.src='https://images.pexels.com/photos/46798/the-ball-stadion-football-the-pitch-46798.jpeg?auto=compress&cs=tinysrgb&w=800'">
-                        <div class="absolute top-3 left-3 bg-brand-accent/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded shadow-sm border border-white/10">
-                            ${post.source || 'Update'}
+                    <div class="card-glow"></div>
+                    <div class="h-44 md:h-48 overflow-hidden relative bg-brand-card">
+                        <img src="${post.image_url}" alt="" class="image-zoom w-full h-full object-cover" loading="lazy"
+                             onerror="this.src='https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/60 to-transparent"></div>
+                        <div class="absolute top-3 left-3 ${sourceClass} text-white text-[9px] md:text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow-lg backdrop-blur-sm border border-white/10">
+                            ${post.source || 'AI News'}
                         </div>
                     </div>
-                    <div class="p-5 flex flex-col flex-grow">
-                        <div class="text-[11px] text-gray-400 mb-2 font-medium tracking-wide uppercase">${post.date}</div>
-                        <h4 class="text-base font-bold text-gray-100 leading-snug line-clamp-3 mb-3 group-hover:text-brand-accent transition-colors">
+                    <div class="p-4 md:p-5 flex flex-col flex-grow">
+                        <div class="text-[10px] text-brand-muted mb-2 font-mono tracking-wide uppercase flex items-center space-x-1.5">
+                            <svg class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>${formatDate(post.date)}</span>
+                        </div>
+                        <h4 class="text-sm md:text-[15px] font-bold text-gray-100 leading-snug line-clamp-3 mb-2.5 group-hover:text-brand-accent transition-colors duration-300">
                             ${post.title}
                         </h4>
-                        <p class="text-sm text-gray-400 leading-relaxed line-clamp-3 mt-auto">
+                        <p class="text-xs md:text-sm text-brand-muted leading-relaxed line-clamp-2 mt-auto">
                             ${post.text || ''}
                         </p>
+                        <div class="mt-3 pt-3 border-t border-brand-border/50 flex items-center justify-between">
+                            <span class="text-[10px] text-brand-accent font-semibold group-hover:text-brand-cyan transition-colors">Read more →</span>
+                        </div>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -252,7 +430,7 @@
 
         function resetCountdown() {
             clearInterval(countdownTimer);
-            countdownSeconds = 300;
+            countdownSeconds = REFRESH_INTERVAL;
             updateTimerText();
             countdownTimer = setInterval(() => {
                 countdownSeconds--;
@@ -264,13 +442,20 @@
         function updateTimerText() {
             const m = Math.floor(countdownSeconds / 60);
             const s = countdownSeconds % 60;
-            document.getElementById('update-timer').innerText = `Update in ${m}:${s < 10 ? '0'+s : s}`;
+            const el = document.getElementById('update-timer');
+            if (el) el.innerText = `${m}:${s < 10 ? '0'+s : s}`;
         }
 
         document.getElementById('refresh-btn').addEventListener('click', (e) => {
-            const icon = e.currentTarget.querySelector('svg');
+            const icon = document.getElementById('refresh-icon');
             icon.classList.add('animate-spin');
-            fetchNews().finally(() => setTimeout(() => icon.classList.remove('animate-spin'), 1000));
+            e.currentTarget.disabled = true;
+            fetchNews().finally(() => {
+                setTimeout(() => {
+                    icon.classList.remove('animate-spin');
+                    e.currentTarget.disabled = false;
+                }, 800);
+            });
         });
 
         window.addEventListener('DOMContentLoaded', fetchNews);

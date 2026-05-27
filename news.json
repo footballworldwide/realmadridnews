@@ -1,26 +1,425 @@
 [
     {
-        "title": "Welcome to the Premium Real Madrid News Feed!",
-        "text": "This feed automatically displays the latest updates, match analysis, and transfer news about the greatest club in the world. Hala Madrid!",
-        "image_url": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1200&q=80",
-        "date": "2026-05-26 20:43"
+        "id": "https://www.theverge.com/?p=937801",
+        "title": "Did the Pope use AI to write about the dangers of AI?",
+        "text": "It's possible that AI was used to write parts of Pope Leo XIV's latest encyclical about AI's impact on humanity. An analysis by Linch Zhang posted on the forum LessWrong found certain paragraphs of Magnifica Humanitas to be between 40 percent and 100 percent written by AI, according to the popular A",
+        "link": "https://www.theverge.com/ai-artificial-intelligence/937801/pope-leo-xiv-magnifica-humanitas-ai-pangram",
+        "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/05/gettyimages-2278118480.jpg?quality=90&strip=all&crop=0,0,100,100",
+        "date": "2026-05-27 00:38",
+        "source": "The Verge"
     },
     {
-        "title": "Mbappe Shines in Training Ahead of Next Clash",
-        "text": "Kylian Mbappe was seen scoring brilliant goals in the training session today as Real Madrid prepares for the upcoming match. The squad looks highly motivated.",
-        "image_url": "https://images.unsplash.com/photo-1540747737956-37872404a821?auto=format&fit=crop&w=800&q=80",
-        "date": "2026-05-26 20:43"
+        "id": "https://techcrunch.com/?p=3126251",
+        "title": "DuckDuckGo installs are up 30% as users reject being ‘force-fed’ Google’s AI Search",
+        "text": "Google overhauled Search at I/O 2026, replacing blue links with AI agents. The backlash has been swift. DuckDuckGo app installs spiked 30% as users seek a way out.",
+        "link": "https://techcrunch.com/2026/05/26/duckduckgo-installs-are-up-30-as-users-reject-being-force-fed-googles-ai-search/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2026/05/DuckDuckGo_NoAI.png?resize=1200,784",
+        "date": "2026-05-26 22:32",
+        "source": "TechCrunch AI"
     },
     {
-        "title": "Ancelotti: 'We are ready for the final matches'",
-        "text": "Carlo Ancelotti addressed the media in today's press conference: 'The team is physically in great shape and we are fully focused on taking home the trophies.'",
-        "image_url": "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80",
-        "date": "2026-05-26 20:43"
+        "id": "https://arstechnica.com/information-technology/2026/05/millions-of-ai-agents-imperiled-by-critical-vulnerability-in-open-source-package/",
+        "title": "Millions of AI agents imperiled by critical vulnerability in open source package",
+        "text": "\"BadHost\" was found in Starlette, a package with 325 million weekly downloads.",
+        "link": "https://arstechnica.com/information-technology/2026/05/millions-of-ai-agents-imperiled-by-critical-vulnerability-in-open-source-package/",
+        "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/02/gatekeeping-ai-agents-1152x648.jpg",
+        "date": "2026-05-26 19:50",
+        "source": "Ars Technica"
     },
     {
-        "title": "Santiago Bernabeu Renovation Updates",
-        "text": "The legendary stadium is looking more futuristic than ever. Check out the latest pictures of the new retractable pitch technology and 360-degree screen.",
-        "image_url": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
-        "date": "2026-05-26 20:43"
+        "id": "https://techcrunch.com/?p=3126013",
+        "title": "OpenRouter more than doubles valuation to $1.3B in a year",
+        "text": "OpenRouter has raised a $113 million Series B led by CapitalG. Its 5x growth in usage over six months indicates the multi-AI-model future is here.",
+        "link": "https://techcrunch.com/2026/05/26/openrouter-more-than-doubles-valuation-to-1-3b-in-a-year/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2026/02/GettyImages-157503102.jpg?resize=1200,776",
+        "date": "2026-05-26 18:33",
+        "source": "TechCrunch AI"
+    },
+    {
+        "id": "https://techcrunch.com/?p=3123948",
+        "title": "This startup is betting India’s gig economy can train the world’s robots",
+        "text": "Human Archive, a startup founded by UC Berkeley and Stanford researchers, is paying gig workers in India to wear camera-equipped caps and sensor devices to collect the real-world physical training data that AI and robotics labs are racing to acquire.",
+        "link": "https://techcrunch.com/2026/05/26/human-archive-taps-into-indias-services-startups-to-collect-data-for-physical-ai/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2026/05/Main-YC-Headshot-all-4-of-us.jpg?resize=1200,800",
+        "date": "2026-05-26 16:00",
+        "source": "TechCrunch AI"
+    },
+    {
+        "id": "https://techcrunch.com/?p=3125925",
+        "title": "Universal Music Group and TikTok renew agreement to combat unauthorized AI music",
+        "text": "For years, UMG has pushed platforms, streaming services, and AI companies to implement stricter content moderation policies.",
+        "link": "https://techcrunch.com/2026/05/26/universal-music-group-and-tiktok-renew-agreement-to-combat-unauthorized-ai-music/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2026/03/tiktok-header.jpg?resize=1200,800",
+        "date": "2026-05-26 14:55",
+        "source": "TechCrunch AI"
+    },
+    {
+        "id": "https://techcrunch.com/?p=3125880",
+        "title": "TechCrunch Disrupt 2026 Early Bird ticket rates end May 29",
+        "text": "Save up to $410 on your TechCrunch Disrupt 2026 pass before prices increase on May 29 at 11:59 p.m. PT. Register here to join the tech epicenter in San Francisco.",
+        "link": "https://techcrunch.com/2026/05/26/techcrunch-disrupt-2026-early-bird-ticket-rates-end-may-29/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2026/02/TCD26_4Days-16X9-Dark.png?resize=1200,675",
+        "date": "2026-05-26 14:00",
+        "source": "TechCrunch AI"
+    },
+    {
+        "id": "https://www.theverge.com/?p=936445",
+        "title": "Sundar Pichai on AI, the future of search, and what’s happening to the web",
+        "text": "Today, I’m talking with Google and Alphabet CEO Sundar Pichai, in a conversation we recorded just after the Google I/O developer conference. This is the fifth year Sundar and I have sat down after I/O, and it’s become one of my favorite Decoder traditions. There’s always a lot of news at I/O, and th",
+        "link": "https://www.theverge.com/podcast/936445/sundar-pichai-ai-search-google-zero-youtube-web",
+        "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/05/DCD_2026.05.26_Sundar_Google.jpg?quality=90&strip=all&crop=0,0,100,100",
+        "date": "2026-05-26 14:00",
+        "source": "The Verge"
+    },
+    {
+        "id": "https://www.theverge.com/?p=937059",
+        "title": "Nobody wants to tell me why they only listen to their own Suno slop",
+        "text": "There's this alarming trend in the Suno subreddit. People aren't just prompting AI songs; they're sitting around listening almost exclusively to their own slop. And in some cases, they proudly proclaim that they don't listen to music on traditional streaming platforms anymore - it's just AI all day.",
+        "link": "https://www.theverge.com/ai-artificial-intelligence/937059/nobody-wants-to-tell-me-why-they-only-listen-their-own-suno-slop",
+        "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/2025/05/STKS511_AI_SLOP_A.jpg?quality=90&strip=all&crop=0,0,100,100",
+        "date": "2026-05-26 12:46",
+        "source": "The Verge"
+    },
+    {
+        "id": "https://www.theverge.com/?p=937028",
+        "title": "AI warfare is already here",
+        "text": "The Convention on Certain Conventional Weapons, an international forum that focuses on lethal autonomous systems, is hosted twice a year at the United Nations in Geneva. When Branka Marijan attended in November 2017, she thought the five-day sessions - which dealt largely in hypotheticals, speculati",
+        "link": "https://www.theverge.com/ai-artificial-intelligence/937028/military-ai-warfare-red-lines",
+        "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/05/268475_AIs_red_line_JMac2.png?quality=90&strip=all&crop=0,0,100,100",
+        "date": "2026-05-26 12:00",
+        "source": "The Verge"
+    },
+    {
+        "id": "https://www.theverge.com/?p=937116",
+        "title": "Uber president says AI spending is getting ‘harder to justify’",
+        "text": "After reportedly exhausting its annual AI budget just four months into 2026, Uber is now questioning whether it's actually seeing meaningful returns on its investments. In an interview with Rapid Response, Uber president and chief operating officer Andrew Macdonald said the company isn't seeing a co",
+        "link": "https://www.theverge.com/transportation/937116/uber-ai-investment-hard-to-justify",
+        "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/05/gettyimages-2245764686.jpg?quality=90&strip=all&crop=0,0,100,100",
+        "date": "2026-05-26 09:55",
+        "source": "The Verge"
+    },
+    {
+        "id": "https://techcrunch.com/?p=3125761",
+        "title": "What ClickUp’s mass layoff tells us about the future of work",
+        "text": "The nine-year-old startup is replacing hundreds of employees with thousands of AI agents.",
+        "link": "https://techcrunch.com/2026/05/25/what-clickups-mass-layoff-tells-us-about-the-future-of-work/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2023/07/GettyImages-1247853635.jpg?resize=1200,800",
+        "date": "2026-05-25 16:00",
+        "source": "TechCrunch AI"
+    },
+    {
+        "id": "https://techcrunch.com/?p=3125866",
+        "title": "The pope’s AI encyclical isn’t really about AI",
+        "text": "Pope Leo XIV's first encyclical uses AI as a lens to diagnose older problems: concentrated power, eroding democracy, and a tech elite that shapes the world to its own advantage.",
+        "link": "https://techcrunch.com/2026/05/25/the-popes-ai-encyclical-isnt-really-about-ai/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2025/06/GettyImages-2213411719.jpg?w=1024",
+        "date": "2026-05-25 15:09",
+        "source": "TechCrunch AI"
+    },
+    {
+        "id": "https://www.theverge.com/?p=936945",
+        "title": "Pope Leo calls for being ‘profoundly human’ in the age of AI",
+        "text": "Pope Leo XIV warned of the risks of AI and unconstrained technological power in his first major papal document released on Monday. Magnifica Humanitas is the pope's manifesto on \"safeguarding the human person in the time of artificial intelligence,\" in which he discusses the dangers of AI-powered wa",
+        "link": "https://www.theverge.com/news/936945/pope-leo-letter-encyclical-ai-anthropic-labor-warfare",
+        "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/05/gettyimages-2278126608.jpg?quality=90&strip=all&crop=0,0,100,100",
+        "date": "2026-05-25 15:05",
+        "source": "The Verge"
+    },
+    {
+        "id": "https://techcrunch.com/?p=3125834",
+        "title": "Startup Battlefield 200 applications close in days: Apply before May 27",
+        "text": "The deadline to apply or nominate for Startup Battlefield 200 is May 27. This is your shot at VC access, global visibility, TechCrunch coverage, and $100,000. Apply now.",
+        "link": "https://techcrunch.com/2026/05/25/startup-battlefield-200-applications-close-in-days-apply-before-may-27/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2025/11/54889393608_2493644601_o-2.jpg?resize=1200,800",
+        "date": "2026-05-25 14:30",
+        "source": "TechCrunch AI"
+    },
+    {
+        "id": "https://techcrunch.com/?p=3125848",
+        "title": "5 days left: Save up to $410 on TechCrunch Disrupt 2026 passes before prices increase",
+        "text": "Early Bird savings for TechCrunch Disrupt 2026 in San Francisco end May 29 at 11:59 p.m. PT. Register now to save up to $410 before prices increase.",
+        "link": "https://techcrunch.com/2026/05/25/5-days-left-save-up-to-410-on-techcrunch-disrupt-2026-passes-before-prices-increase/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2026/02/TCD26_5Days-16X9-Dark.png?resize=1200,675",
+        "date": "2026-05-25 14:00",
+        "source": "TechCrunch AI"
+    },
+    {
+        "id": "https://techcrunch.com/?p=3125822",
+        "title": "Everyone is navigating AI security in real time — even Google",
+        "text": "We're in the transition period -- all of us.",
+        "link": "https://techcrunch.com/2026/05/24/everyone-is-navigating-ai-security-in-real-time-even-google/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2026/04/GettyImages-2266466589.jpg?w=1024",
+        "date": "2026-05-24 21:39",
+        "source": "TechCrunch AI"
+    },
+    {
+        "id": "https://techcrunch.com/?p=3125127",
+        "title": "Xreal, Google’s smart glasses partner, thinks it has finally mastered this notoriously tricky industry",
+        "text": "Chi Xu, the founder and CEO of Xreal, thinks the smart glasses business has finally reached a turning point.",
+        "link": "https://techcrunch.com/2026/05/24/xreal-googles-smartglasses-partner-thinks-it-has-finally-mastered-this-notoriously-tricky-industry/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2026/05/Screenshot-2026-05-22-at-9.02.36-AM.png?resize=1200,673",
+        "date": "2026-05-24 19:00",
+        "source": "TechCrunch AI"
+    },
+    {
+        "id": "https://techcrunch.com/?p=3122419",
+        "title": "I tried Amazon’s Bee wearable and am both intrigued and slightly creeped out",
+        "text": "Like other AI wearables, Amazon's Bee offers an odd combination of convenience and privacy anxiety.",
+        "link": "https://techcrunch.com/2026/05/24/i-tried-amazons-bee-wearable-and-am-both-intrigued-and-slightly-creeped-out/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2024/07/17.png?resize=1200,750",
+        "date": "2026-05-24 15:00",
+        "source": "TechCrunch AI"
+    },
+    {
+        "id": "https://www.theverge.com/?p=935545",
+        "title": "Hackers are learning to exploit chatbot &#8216;personalities&#8217;",
+        "text": "This is The Stepback, a weekly newsletter breaking down one essential story from the tech world. For more on AI mischief, follow Robert Hart. The Stepback arrives in our subscribers' inboxes at 8AM ET. Opt in for The Stepback here. How it started Hacking the first generation of AI chatbots was a lau",
+        "link": "https://www.theverge.com/column/935545/hackers-ai-chatbots",
+        "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/2025/09/STK414_AI_CVIRGINIA_I__0005_3.png?quality=90&strip=all&crop=0,0,100,100",
+        "date": "2026-05-24 12:00",
+        "source": "The Verge"
+    },
+    {
+        "id": "https://techcrunch.com/?p=3125548",
+        "title": "Ferrari is using IBM’s AI to create F1 superfans",
+        "text": "IBM and Scuderia Ferrari HP take TechCrunch inside how they are redefining the fan experience.",
+        "link": "https://techcrunch.com/2026/05/23/ferrari-is-using-ai-to-create-f1-superfans/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2026/05/01-bxd-ferrari-xg-photography-v2.jpg?resize=1200,959",
+        "date": "2026-05-23 15:08",
+        "source": "TechCrunch AI"
+    },
+    {
+        "id": "https://techcrunch.com/?p=3125279",
+        "title": "Elon Musk has given up on solar power (on Earth)",
+        "text": "Elon Muks's xAI has gone all in on natural gas, while SpaceX is obsessed with orbital data centers. What happened to the \"solar-electric economy\" he promised?",
+        "link": "https://techcrunch.com/2026/05/23/elon-musk-has-given-up-on-solar-power-on-earth/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2026/05/GettyImages-2275592313.jpg?resize=1200,800",
+        "date": "2026-05-23 13:00",
+        "source": "TechCrunch AI"
+    },
+    {
+        "id": "https://www.theverge.com/?p=936507",
+        "title": "Google’s new anything-to-anything AI model is wild",
+        "text": "Last year I deepfaked my kid's stuffed animal to make it look like his plush deer was on vacation. It was an experiment to see if I could re-create the events depicted in a Gemini ad Google was running, and I never showed the videos of Buddy the deer on his adventures to my four-year-old. […]",
+        "link": "https://www.theverge.com/tech/936507/gemini-omni-hands-on-deepfake-ai-video",
+        "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/05/ai-label-19.png?quality=90&strip=all&crop=0,0,100,100",
+        "date": "2026-05-23 11:00",
+        "source": "The Verge"
+    },
+    {
+        "id": "https://techcrunch.com/?p=3125679",
+        "title": "AI is being used to resurrect the voices of dead pilots",
+        "text": "People used AI on a spectrogram image of cockpit recordings to reconstruct them, forcing the NTSB to temporarily block access to its docket system.",
+        "link": "https://techcrunch.com/2026/05/22/ai-is-being-used-to-resurrect-the-voices-of-dead-pilots/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2026/05/UPS-crash-flight-kentucky-Getty.jpg?resize=1200,800",
+        "date": "2026-05-22 23:03",
+        "source": "TechCrunch AI"
+    },
+    {
+        "id": "https://techcrunch.com/?p=3125544",
+        "title": "Google goes for the glitter with disco-ball icons: ‘Are y’all sure you still want this?’",
+        "text": "You can now disco ball-ify your entire Pixel home screen, says Google.",
+        "link": "https://techcrunch.com/2026/05/22/google-goes-for-the-glitter-with-disco-ball-icons-are-yall-sure-you-still-want-this/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2026/05/Screenshot-2026-05-22-at-2.46.43-PM.jpg?resize=1200,965",
+        "date": "2026-05-22 21:02",
+        "source": "TechCrunch AI"
+    },
+    {
+        "id": "https://techcrunch.com/?p=3125155",
+        "title": "How VCs and founders use inflated ‘ARR’ to crown AI startups",
+        "text": "Some AI startups are stretching traditional revenue metrics when talking about progress publicly. And their investors are fully aware.",
+        "link": "https://techcrunch.com/2026/05/22/how-vcs-and-founders-use-inflated-arr-to-kingmake-ai-startups/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2026/05/Pinocchio-ARR-nose2.jpg?w=1000",
+        "date": "2026-05-22 20:40",
+        "source": "TechCrunch AI"
+    },
+    {
+        "id": "https://www.theverge.com/?p=936176",
+        "title": "Google&#8217;s AI search is so broken it can &#8216;disregard&#8217; what you&#8217;re looking for",
+        "text": "Google's AI Overviews are running into an interesting problem right now. Earlier on Friday, if you searched for the term \"disregard,\" the AI Overview section would include a response like what you'd see from a more traditional AI chatbot instead of the typical AI summary, as spotted on X. As you can",
+        "link": "https://www.theverge.com/tech/936176/google-ai-overviews-search-disregard",
+        "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/05/Screenshot-2026-05-22-at-8.44.28AM.png?quality=90&strip=all&crop=0,0,100,100",
+        "date": "2026-05-22 20:39",
+        "source": "The Verge"
+    },
+    {
+        "id": "https://techcrunch.com/?post_type=tc_podcast&p=3125546",
+        "title": "Elon Musk can’t hear you over the sound of his $1.75 trillion IPO",
+        "text": "The SpaceX S-1 is finally here, and the story it tells goes way further than rockets. The filing runs to 36 pages of risk factors alone, and the numbers inside match the ambition: a $28 trillion total addressable market, a pay package tied to establishing a Mars colony, and a valuation target that w",
+        "link": "https://techcrunch.com/podcast/elon-musk-cant-hear-you-over-the-sound-of-his-1-75-trillion-ipo/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2026/05/GettyImages-2275592313.jpg?resize=1200,800",
+        "date": "2026-05-22 18:17",
+        "source": "TechCrunch AI"
+    },
+    {
+        "id": "https://arstechnica.com/security/2026/05/texas-ag-sues-meta-over-claims-that-whatsapp-doesnt-provide-end-to-end-encryption/",
+        "title": "Texas AG sues Meta over claims that WhatsApp doesn't provide end-to-end encryption",
+        "text": "Critics note a lack of factual support in lawsuit filed by US Senate candidate.",
+        "link": "https://arstechnica.com/security/2026/05/texas-ag-sues-meta-over-claims-that-whatsapp-doesnt-provide-end-to-end-encryption/",
+        "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2025/10/whatsapp-1024x648.jpg",
+        "date": "2026-05-22 18:13",
+        "source": "Ars Technica"
+    },
+    {
+        "id": "https://www.theverge.com/?p=936219",
+        "title": "Elon, stop trying to make Grok happen",
+        "text": "There is a harsh truth about Elon Musk's \"truth-seeking\" AI chatbot Grok: It's not very good, and not many people are using it. That's the takeaway of a new Reuters report, which found that Grok barely appears in federal records of how the US government used AI last year. It's not the only sign xAI'",
+        "link": "https://www.theverge.com/ai-artificial-intelligence/936219/elon-stop-trying-to-make-grok-happen",
+        "image_url": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/05/VRG_Illo_STK022_K_Radtke_Musk_Smiles.jpg?quality=90&strip=all&crop=0,0,100,100",
+        "date": "2026-05-22 17:17",
+        "source": "The Verge"
+    },
+    {
+        "id": "https://techcrunch.com/?p=3125457",
+        "title": "You can no longer Google the word ‘disregard’",
+        "text": "After Google Search's AI update, the word \"disregard\" now effectively breaks the search interface.",
+        "link": "https://techcrunch.com/2026/05/22/you-can-no-longer-google-the-word-disregard/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2024/05/Google-IO-everything.webp?resize=1200,674",
+        "date": "2026-05-22 16:16",
+        "source": "TechCrunch AI"
+    },
+    {
+        "id": "https://techcrunch.com/?p=3125116",
+        "title": "We tried Google’s AI glasses and they’re almost there",
+        "text": "Google demoed prototype Android XR glasses that overlay Gemini-powered translation, navigation, and other information directly into your field of view.",
+        "link": "https://techcrunch.com/2026/05/22/we-tried-googles-ai-glasses-and-theyre-almost-there/",
+        "image_url": "https://techcrunch.com/wp-content/uploads/2026/05/1_IO_Glasses_Product_GentleMonst.width-1000.format-webp_NnExl2N.webp?w=1000",
+        "date": "2026-05-22 15:37",
+        "source": "TechCrunch AI"
+    },
+    {
+        "id": "https://arstechnica.com/information-technology/2026/05/a-hacker-group-is-poisoning-open-source-code-at-an-unprecedented-scale/",
+        "title": "A hacker group is poisoning open source code at an unprecedented scale",
+        "text": "GitHub is just the latest victim of TeamPCP, a gang that has carried out a spree of software supply chain attacks.",
+        "link": "https://arstechnica.com/information-technology/2026/05/a-hacker-group-is-poisoning-open-source-code-at-an-unprecedented-scale/",
+        "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/05/GettyImages-2270725355-1152x648.jpg",
+        "date": "2026-05-22 10:30",
+        "source": "Ars Technica"
+    },
+    {
+        "id": "https://arstechnica.com/information-technology/2026/05/in-stunning-display-of-stupid-secret-cisa-credentials-found-in-public-github-repo/",
+        "title": "In stunning display of stupid, secret CISA credentials found in public GitHub repo",
+        "text": "SSH keys, plaintext passwords, other sensitive data had been up since November 2025.",
+        "link": "https://arstechnica.com/information-technology/2026/05/in-stunning-display-of-stupid-secret-cisa-credentials-found-in-public-github-repo/",
+        "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/05/GettyImages-1303783356-1152x648.jpg",
+        "date": "2026-05-19 18:27",
+        "source": "Ars Technica"
+    },
+    {
+        "id": "5M2gv6mk7MEHXAvBa4H7z0",
+        "title": "Google just redesigned the search box for the first time in 25 years — here’s why it matters more than you think.",
+        "text": "For a quarter century, the Google search box has been one of the most recognizable interfaces in computing: a thin white rectangle, a blinking cursor, a few typed words, and a list of blue links. On Tuesday, Google will formally retire that paradigm. At its annual  I/O developer conference , Google ",
+        "link": "https://venturebeat.com/technology/google-just-redesigned-the-search-box-for-the-first-time-in-25-years-heres-why-it-matters-more-than-you-think",
+        "image_url": "https://images.ctfassets.net/jdtwqhzvc2n1/1TD0Sl7Zq6nnBSZMK9FXpl/41ce2cc6da055da7647670c71ba8aa6b/Nuneybits_Vector_art_of_an_oversized_white_search_bar_rimmed_in_695cac3f-1536-4438-acc1-51c16e2ff51f.webp?w=300&q=30",
+        "date": "2026-05-19 17:45",
+        "source": "VentureBeat"
+    },
+    {
+        "id": "https://arstechnica.com/information-technology/2026/05/mozilla-says-271-vulnerabilities-found-by-mythos-have-almost-no-false-positives/",
+        "title": "Mozilla says 271 vulnerabilities found by Mythos have \"almost no false positives\"",
+        "text": "The developer of Firefox says it has \"completely bought in\" on AI-assisted bug discovery.",
+        "link": "https://arstechnica.com/information-technology/2026/05/mozilla-says-271-vulnerabilities-found-by-mythos-have-almost-no-false-positives/",
+        "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/03/GettyImages-2167753513-1152x648.jpg",
+        "date": "2026-05-07 19:18",
+        "source": "Ars Technica"
+    },
+    {
+        "id": "https://arstechnica.com/security/2026/05/widely-used-daemon-tools-disk-app-backdoored-in-monthlong-supply-chain-attack/",
+        "title": "Widely used Daemon Tools disk app backdoored in monthlong supply-chain attack",
+        "text": "Daemon Tools users: It's time to check your machines for stealthy infections, stat.",
+        "link": "https://arstechnica.com/security/2026/05/widely-used-daemon-tools-disk-app-backdoored-in-monthlong-supply-chain-attack/",
+        "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2022/08/GettyImages-1230467668-1152x648.jpg",
+        "date": "2026-05-05 19:46",
+        "source": "Ars Technica"
+    },
+    {
+        "id": "https://arstechnica.com/information-technology/2026/05/why-reddit-blocked-my-daily-visit-to-its-mobile-website/",
+        "title": "Why Reddit blocked my daily visit to its mobile website",
+        "text": "Reddit REALLY wants you to use its app.",
+        "link": "https://arstechnica.com/information-technology/2026/05/why-reddit-blocked-my-daily-visit-to-its-mobile-website/",
+        "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/05/GettyImages-2194614711-1152x648.jpg",
+        "date": "2026-05-05 11:20",
+        "source": "Ars Technica"
+    },
+    {
+        "id": "https://arstechnica.com/tech-policy/2026/05/gamestop-offers-56-billion-for-ebay-struggles-to-explain-how-itll-pay-for-it/",
+        "title": "GameStop offers $56 billion for eBay, struggles to explain how it'll pay for it",
+        "text": "Amid falling revenue and store closures, GameStop wants to buy the much larger eBay.",
+        "link": "https://arstechnica.com/tech-policy/2026/05/gamestop-offers-56-billion-for-ebay-struggles-to-explain-how-itll-pay-for-it/",
+        "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/05/gamestop-store-1152x648-1777915631.jpg",
+        "date": "2026-05-04 17:57",
+        "source": "Ars Technica"
+    },
+    {
+        "id": "https://arstechnica.com/security/2026/04/as-the-most-severe-linux-threat-in-years-surfaces-the-world-scrambles/",
+        "title": "The most severe Linux threat to surface in years catches the world flat-footed",
+        "text": "CopyFail threatens multi-tenant servers, CI/CD work flows, Kubernetes containers, and more.",
+        "link": "https://arstechnica.com/security/2026/04/as-the-most-severe-linux-threat-in-years-surfaces-the-world-scrambles/",
+        "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2023/09/code-vulnerability-security-1000x648.jpg",
+        "date": "2026-04-30 20:20",
+        "source": "Ars Technica"
+    },
+    {
+        "id": "https://arstechnica.com/information-technology/2026/04/why-a-recent-supply-chain-attack-singled-out-security-firms-checkmarx-and-bitwarden/",
+        "title": "Why a recent supply-chain attack singled out security firms Checkmarx and Bitwarden",
+        "text": "Security firms find themselves especially exposed.",
+        "link": "https://arstechnica.com/information-technology/2026/04/why-a-recent-supply-chain-attack-singled-out-security-firms-checkmarx-and-bitwarden/",
+        "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2021/07/data-breach.jpeg",
+        "date": "2026-04-29 11:00",
+        "source": "Ars Technica"
+    },
+    {
+        "id": "1l2gUXhw9OMzMzsSp8yAFk",
+        "title": "Railway secures $100 million to challenge AWS with AI-native cloud infrastructure",
+        "text": "Railway , a San Francisco-based cloud platform that has quietly amassed two million developers without spending a dollar on marketing, announced Thursday that it raised $100 million in a Series B funding round, as surging demand for artificial intelligence applications exposes the limitations of leg",
+        "link": "https://venturebeat.com/infrastructure/railway-secures-usd100-million-to-challenge-aws-with-ai-native-cloud",
+        "image_url": "https://images.ctfassets.net/jdtwqhzvc2n1/5RLyQIpBeVXxv0RpcXZxWQ/fd9680c6d82acd8208ac341fc575f5fb/nuneybits_Vector_art_of_a_sleek_bullet_train_bursting_from_a_cl_32a805aa-272c-4b34-ac16-cf20508b7ff4.webp?w=300&q=30",
+        "date": "2026-01-22 14:00",
+        "source": "VentureBeat"
+    },
+    {
+        "id": "2CUHNkdUg4dnjDFiMtJJQ",
+        "title": "Claude Code costs up to $200 a month. Goose does the same thing for free.",
+        "text": "The artificial intelligence coding revolution comes with a catch: it's expensive. Claude Code , Anthropic's terminal-based AI agent that can write, debug, and deploy code autonomously, has captured the imagination of software developers worldwide. But its  pricing  — ranging from $20 to $200 per mon",
+        "link": "https://venturebeat.com/infrastructure/claude-code-costs-up-to-usd200-a-month-goose-does-the-same-thing-for-free",
+        "image_url": "https://images.ctfassets.net/jdtwqhzvc2n1/1U9H8GLIqoGqKpitVfgw3T/ba56292f99409eca709dac0b176ec245/nuneybits_Vector_art_of_white_goose_silhouette_flying_through_c_8100d5a7-9e36-4ed6-a188-016470e1d0e1.webp?w=300&q=30",
+        "date": "2026-01-19 14:00",
+        "source": "VentureBeat"
+    },
+    {
+        "id": "wOG0z6nm91FOeUqhpizqI",
+        "title": "Listen Labs raises $69M after viral billboard hiring stunt to scale AI customer interviews",
+        "text": "Alfred Wahlforss was running out of options. His startup,  Listen Labs , needed to hire over 100 engineers, but competing against Mark Zuckerberg's  $100 million offers  seemed impossible. So he spent $5,000 — a fifth of his marketing budget — on a  billboard in San Francisco  displaying what looked",
+        "link": "https://venturebeat.com/technology/listen-labs-raises-usd69m-after-viral-billboard-hiring-stunt-to-scale-ai",
+        "image_url": "https://images.ctfassets.net/jdtwqhzvc2n1/4gD12ThOmNHZuosqC4xCTz/277b1e8968da602108a29fae2eaca440/nuneybits_Vector_art_of_billboard_with_cryptic_code_dbe5b0ff-7644-45e6-a1ca-4a5dceeff986.webp?w=300&q=30",
+        "date": "2026-01-16 14:01",
+        "source": "VentureBeat"
+    },
+    {
+        "id": "1dxpkoyNmn8ceRMHCKLlT8",
+        "title": "Salesforce rolls out new Slackbot AI agent as it battles Microsoft and Google in workplace AI",
+        "text": "Salesforce  on Tuesday launched an entirely rebuilt version of  Slackbot , the company's workplace assistant, transforming it from a simple notification tool into what executives describe as a fully powered AI agent capable of searching enterprise data, drafting documents, and taking action on behal",
+        "link": "https://venturebeat.com/technology/salesforce-rolls-out-new-slackbot-ai-agent-as-it-battles-microsoft-and",
+        "image_url": "https://images.ctfassets.net/jdtwqhzvc2n1/4Xrcg14GLKFlwSEnuEzxyS/21c85d29d03c4c974076475c009e3b38/nuneybits_Vector_art_of_chat_bubbles_on_a_computer_screen_in_th_5018a7ea-3496-4103-8453-7ba1b129189a.webp?w=300&q=30",
+        "date": "2026-01-13 13:00",
+        "source": "VentureBeat"
+    },
+    {
+        "id": "7EaNv4Ip2AUlW9RClUv2cB",
+        "title": "Anthropic launches Cowork, a Claude Desktop agent that works in your files — no coding required",
+        "text": "Anthropic  released  Cowork  on Monday, a new AI agent capability that extends the power of its wildly successful  Claude Code  tool to non-technical users — and according to company insiders, the team built the entire feature in approximately a week and a half, largely using Claude Code itself. The",
+        "link": "https://venturebeat.com/technology/anthropic-launches-cowork-a-claude-desktop-agent-that-works-in-your-files-no",
+        "image_url": "https://images.ctfassets.net/jdtwqhzvc2n1/wHv1Wez7Ps9wYVYAo9fwT/14b41f606dbf1f5b17994be510407449/nuneybits_Hyper-realistic_image_of_a_retro_computer_with_a_glos_61ffb6e2-7c33-4d45-85f7-69c28693b3ec.webp?w=300&q=30",
+        "date": "2026-01-12 11:30",
+        "source": "VentureBeat"
+    },
+    {
+        "id": "4ri2LVmhlv34kOOk94nnsi",
+        "title": "Nous Research's NousCoder-14B is an open-source coding model landing right in the Claude Code moment",
+        "text": "Nous Research , the open-source artificial intelligence startup backed by crypto venture firm  Paradigm , released a new competitive programming model on Monday that it says matches or exceeds several larger proprietary systems — trained in just four days using 48 of Nvidia's latest  B200 graphics p",
+        "link": "https://venturebeat.com/technology/nous-researchs-nouscoder-14b-is-an-open-source-coding-model-landing-right-in",
+        "image_url": "https://images.ctfassets.net/jdtwqhzvc2n1/66Tw6dMGGoSZZOK6XB6gm6/0fafc7520898e26c88edf1de9e74e863/nuneybits_Vector_art_of_radiant_skull_emitting_code_beams_deep__17d19acc-0af7-41ad-ac28-16f09ef5234b.webp?w=300&q=30",
+        "date": "2026-01-07 20:00",
+        "source": "VentureBeat"
     }
 ]
