@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Pulse — Premium AI News Aggregator</title>
-    <meta name="description" content="AI Pulse delivers the latest artificial intelligence news, breakthroughs, and research from top sources like TechCrunch, The Verge, Ars Technica, and VentureBeat. Updated every 5 minutes.">
+    <meta name="description" content="AI Pulse delivers real-time artificial intelligence news, breakthroughs, and research from TechCrunch, The Verge, Ars Technica, and VentureBeat. Updated every 5 minutes.">
     <meta property="og:title" content="AI Pulse — Premium AI News Aggregator">
-    <meta property="og:description" content="Real-time AI news from the world's top tech sources. Breakthroughs, models, startups, and research — all in one place.">
+    <meta property="og:description" content="Real-time AI news from the world's top tech sources. Breakthroughs, models, startups, and research.">
     <meta property="og:type" content="website">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
-    <!-- Tailwind CSS -->
+    <meta property="og:image" content="logo.png">
+    <link rel="icon" href="logo.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <script>
@@ -22,11 +22,13 @@
                     },
                     colors: {
                         brand: {
-                            dark: '#06060a',
-                            card: '#0d0d14',
-                            border: '#1a1a2e',
+                            dark: '#050508',
+                            card: '#0c0c14',
+                            surface: '#111119',
+                            border: '#1c1c2e',
                             accent: '#8b5cf6',
                             cyan: '#06b6d4',
+                            emerald: '#10b981',
                             text: '#e2e8f0',
                             muted: '#64748b'
                         }
@@ -36,147 +38,202 @@
         }
     </script>
     <style>
-        * { box-sizing: border-box; }
+        *, *::before, *::after { box-sizing: border-box; }
         body {
-            background-color: #06060a;
+            background: #050508;
             color: #e2e8f0;
+            overflow-x: hidden;
         }
 
-        /* Animated gradient background */
-        .hero-gradient {
-            background: linear-gradient(135deg, #06060a 0%, #0f0a1e 30%, #06060a 50%, #0a1628 70%, #06060a 100%);
-            position: relative;
-        }
-        .hero-gradient::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(ellipse at 20% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 60%),
-                        radial-gradient(ellipse at 80% 50%, rgba(6, 182, 212, 0.06) 0%, transparent 60%);
+        /* Ambient background */
+        .ambient-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
             pointer-events: none;
+            background:
+                radial-gradient(ellipse 80% 50% at 20% 20%, rgba(139,92,246,0.06) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(6,182,212,0.04) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 30% at 50% 50%, rgba(16,185,129,0.02) 0%, transparent 60%);
+        }
+
+        /* Grid overlay */
+        .grid-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(139,92,246,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139,92,246,0.015) 1px, transparent 1px);
+            background-size: 80px 80px;
         }
 
         /* Glass navigation */
         .glass-nav {
-            background: rgba(6, 6, 10, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+            background: rgba(5,5,8,0.75);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-bottom: 1px solid rgba(139,92,246,0.1);
         }
-
-        /* Card styles */
-        .news-card {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: linear-gradient(145deg, #0d0d14 0%, #0a0a12 100%);
+        .glass-nav.scrolled {
+            background: rgba(5,5,8,0.92);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
         }
-        .news-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.2),
-                        0 0 0 1px rgba(139, 92, 246, 0.3);
-            border-color: rgba(139, 92, 246, 0.5);
-        }
-        .news-card:hover .card-glow {
-            opacity: 1;
-        }
-        .card-glow {
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.6), rgba(6, 182, 212, 0.6), transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        .image-zoom {
-            transition: transform 0.7s ease;
-        }
-        .news-card:hover .image-zoom {
-            transform: scale(1.08);
-        }
-
-        /* Source badge colors */
-        .source-techcrunch { background: linear-gradient(135deg, #00d084, #0da574); }
-        .source-verge { background: linear-gradient(135deg, #e04e39, #c73c2d); }
-        .source-arstechnica { background: linear-gradient(135deg, #ff6600, #e05500); }
-        .source-venturebeat { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
-        .source-default { background: linear-gradient(135deg, #8b5cf6, #6366f1); }
 
         /* Pulse animation */
         @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 5px rgba(139, 92, 246, 0.4); }
-            50% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.7); }
+            0%, 100% { filter: drop-shadow(0 0 4px rgba(139,92,246,0.3)); }
+            50% { filter: drop-shadow(0 0 12px rgba(139,92,246,0.6)); }
         }
-        .pulse-logo {
-            animation: pulse-glow 3s ease-in-out infinite;
-        }
+        .pulse-logo { animation: pulse-glow 3s ease-in-out infinite; }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #06060a; }
-        ::-webkit-scrollbar-thumb { background: #1a1a2e; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #8b5cf6; }
+        /* Hero card */
+        .hero-card {
+            transition: all 0.5s cubic-bezier(0.4,0,0.2,1);
+        }
+        .hero-card:hover {
+            box-shadow: 0 0 60px rgba(139,92,246,0.15), 0 0 0 1px rgba(139,92,246,0.2);
+        }
+        .hero-card:hover .hero-img { transform: scale(1.04); }
+        .hero-img { transition: transform 0.8s cubic-bezier(0.4,0,0.2,1); }
+
+        /* News cards */
+        .news-card {
+            transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+            background: linear-gradient(160deg, rgba(12,12,20,0.95) 0%, rgba(8,8,14,0.95) 100%);
+        }
+        .news-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow:
+                0 32px 64px -16px rgba(0,0,0,0.5),
+                0 0 0 1px rgba(139,92,246,0.35),
+                inset 0 1px 0 rgba(139,92,246,0.1);
+        }
+        .news-card:hover .card-shine { opacity: 1; }
+        .news-card:hover .card-img { transform: scale(1.08); }
+        .news-card:hover .read-arrow { transform: translateX(4px); }
+        .card-img { transition: transform 0.6s ease; }
+        .card-shine {
+            position: absolute; top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(139,92,246,0.5) 30%, rgba(6,182,212,0.5) 70%, transparent 100%);
+            opacity: 0; transition: opacity 0.4s ease;
+        }
+        .read-arrow { transition: transform 0.3s ease; }
+
+        /* Source badges */
+        .badge-techcrunch { background: linear-gradient(135deg, #0a9e6f, #06c167); }
+        .badge-verge { background: linear-gradient(135deg, #d63a2f, #e84d3d); }
+        .badge-ars { background: linear-gradient(135deg, #e85d00, #ff7a1a); }
+        .badge-venture { background: linear-gradient(135deg, #6d28d9, #8b5cf6); }
+        .badge-default { background: linear-gradient(135deg, #475569, #64748b); }
 
         /* Skeleton shimmer */
         @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
+            0% { background-position: -300% 0; }
+            100% { background-position: 300% 0; }
         }
         .skeleton {
-            background: linear-gradient(90deg, #0d0d14 25%, #151520 50%, #0d0d14 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
+            background: linear-gradient(90deg, #0c0c14 30%, #16162a 50%, #0c0c14 70%);
+            background-size: 300% 100%;
+            animation: shimmer 2s ease infinite;
         }
 
-        /* Grid line decorations */
-        .grid-lines {
-            background-image:
-                linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
+        /* Fade in animation */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+        .fade-in { animation: fadeInUp 0.5s ease forwards; opacity: 0; }
 
-        /* Category filter */
-        .filter-btn {
-            transition: all 0.3s ease;
+        /* Status indicator */
+        @keyframes blink-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
-        .filter-btn.active {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.2));
-            border-color: rgba(139, 92, 246, 0.5);
+        .blink-status { animation: blink-dot 2s ease-in-out infinite; }
+
+        /* Filter pills */
+        .filter-pill {
+            transition: all 0.25s ease;
+            cursor: pointer;
+            user-select: none;
+        }
+        .filter-pill:hover { border-color: rgba(139,92,246,0.4); color: #c4b5fd; }
+        .filter-pill.active {
+            background: rgba(139,92,246,0.15);
+            border-color: rgba(139,92,246,0.5);
             color: #c4b5fd;
+            box-shadow: 0 0 16px rgba(139,92,246,0.1);
         }
 
-        /* Hero card overlay */
-        .hero-overlay {
-            background: linear-gradient(to top, #06060a 0%, rgba(6,6,10,0.85) 40%, rgba(6,6,10,0.4) 70%, transparent 100%);
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #050508; }
+        ::-webkit-scrollbar-thumb { background: #1c1c2e; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8b5cf6; }
+
+        /* Counter animation */
+        .counter-box {
+            background: linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(6,182,212,0.05) 100%);
+            border: 1px solid rgba(139,92,246,0.15);
+        }
+
+        /* Refresh progress bar */
+        .refresh-bar {
+            position: fixed; top: 0; left: 0; height: 2px; z-index: 100;
+            background: linear-gradient(90deg, #8b5cf6, #06b6d4, #10b981);
+            transition: width 1s linear;
+            box-shadow: 0 0 10px rgba(139,92,246,0.5);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col font-sans selection:bg-brand-accent/30 selection:text-white hero-gradient grid-lines">
+<body class="min-h-screen flex flex-col font-sans selection:bg-brand-accent/30 selection:text-white">
+
+    <!-- Background effects -->
+    <div class="ambient-bg"></div>
+    <div class="grid-overlay"></div>
+
+    <!-- Auto-refresh progress bar -->
+    <div id="refresh-bar" class="refresh-bar" style="width: 100%"></div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass-nav top-0" id="main-nav">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16 md:h-20">
-                <div class="flex items-center space-x-3">
-                    <img src="logo.png" alt="AI Pulse Logo" class="w-9 h-9 md:w-10 md:h-10 rounded-xl pulse-logo shadow-lg object-cover">
+    <nav id="main-nav" class="fixed w-full z-50 glass-nav top-0">
+        <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 md:h-[72px]">
+                <!-- Brand -->
+                <a href="/" class="flex items-center space-x-3 group">
+                    <img src="logo.png" alt="AI Pulse" class="w-9 h-9 md:w-10 md:h-10 rounded-xl pulse-logo object-cover">
                     <div>
-                        <h1 class="text-lg md:text-xl font-extrabold tracking-tight text-white">
+                        <h1 class="text-lg md:text-xl font-extrabold tracking-tight text-white leading-none">
                             AI<span class="bg-gradient-to-r from-brand-accent to-brand-cyan bg-clip-text text-transparent">Pulse</span>
                         </h1>
-                        <p class="text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-brand-muted font-medium">Real-time AI Intelligence</p>
+                        <p class="text-[8px] md:text-[9px] uppercase tracking-[0.25em] text-brand-muted font-medium mt-0.5">AI News • Real-time</p>
                     </div>
-                </div>
-                <div class="flex items-center space-x-3 md:space-x-5">
-                    <div class="hidden sm:flex items-center space-x-2 bg-brand-card border border-brand-border px-3 py-1.5 rounded-full text-xs">
-                        <span class="relative flex h-2 w-2">
+                </a>
+
+                <!-- Right side -->
+                <div class="flex items-center space-x-2 md:space-x-4">
+                    <!-- Status -->
+                    <div class="hidden sm:flex items-center space-x-2 counter-box px-3 py-1.5 rounded-full text-[11px]">
+                        <span class="relative flex h-1.5 w-1.5">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
                         </span>
-                        <span id="update-timer" class="text-brand-muted font-mono font-medium text-[11px]">Live</span>
+                        <span id="update-timer" class="text-brand-muted font-mono font-medium">Live</span>
                     </div>
-                    <a href="https://t.me/AINEWSHUB0" target="_blank" id="telegram-link"
-                       class="text-xs md:text-sm font-semibold text-white bg-gradient-to-r from-brand-accent to-indigo-600 hover:from-brand-accent hover:to-purple-500 px-4 md:px-5 py-2 md:py-2.5 rounded-xl transition-all shadow-lg shadow-brand-accent/20 hover:shadow-brand-accent/40 hover:scale-105 active:scale-95">
-                        <span class="hidden md:inline">📡 Join Channel</span>
-                        <span class="md:hidden">📡 Join</span>
+
+                    <!-- Article count -->
+                    <div class="hidden md:flex items-center counter-box px-3 py-1.5 rounded-full text-[11px]">
+                        <span id="article-count" class="text-brand-muted font-mono font-medium">—</span>
+                    </div>
+
+                    <!-- Telegram -->
+                    <a href="https://t.me/AINEWSHUB0" target="_blank"
+                       class="flex items-center space-x-1.5 text-xs md:text-sm font-semibold text-white bg-gradient-to-r from-brand-accent to-indigo-600 hover:from-purple-500 hover:to-brand-accent px-3.5 md:px-5 py-2 md:py-2.5 rounded-xl transition-all shadow-lg shadow-brand-accent/20 hover:shadow-brand-accent/40 hover:scale-[1.03] active:scale-95">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                        <span class="hidden md:inline">Join Channel</span>
+                        <span class="md:hidden">Join</span>
                     </a>
                 </div>
             </div>
@@ -184,256 +241,287 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-28 w-full relative">
+    <main class="flex-grow max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28 pb-16 w-full relative z-10">
 
         <!-- Hero Section -->
-        <div id="hero-section" class="mb-10 md:mb-14 hidden">
-            <div class="relative w-full h-[300px] sm:h-[400px] md:h-[480px] rounded-2xl overflow-hidden group cursor-pointer border border-brand-border hover:border-brand-accent/40 transition-all duration-500"
+        <section id="hero-section" class="mb-8 md:mb-12 hidden">
+            <div class="hero-card relative w-full rounded-2xl md:rounded-3xl overflow-hidden border border-brand-border cursor-pointer group"
                  onclick="window.open(document.getElementById('hero-link').href, '_blank')">
-                <img id="hero-img" src="" class="absolute inset-0 w-full h-full object-cover image-zoom" alt="Featured AI News"
-                     onerror="this.src='https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80'">
-                <div class="absolute inset-0 hero-overlay"></div>
-                <!-- Decorative corner accents -->
-                <div class="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-brand-accent/30 rounded-tl-2xl"></div>
-                <div class="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-brand-cyan/30 rounded-br-2xl"></div>
-                <div class="absolute bottom-0 left-0 p-6 sm:p-8 md:p-10 w-full max-w-3xl z-10">
-                    <div class="flex items-center space-x-3 mb-3 md:mb-4">
-                        <span id="hero-source" class="source-default text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-md shadow-md">SOURCE</span>
-                        <span id="hero-date" class="text-xs text-gray-400 font-mono tracking-wide">Date</span>
+                <div class="flex flex-col md:flex-row">
+                    <!-- Image -->
+                    <div class="relative w-full md:w-3/5 h-[250px] sm:h-[300px] md:h-[420px] overflow-hidden bg-brand-card">
+                        <img id="hero-img" src="" class="hero-img absolute inset-0 w-full h-full object-cover" alt="Featured AI News"
+                             onerror="this.src='https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80'">
+                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-brand-dark/90 hidden md:block"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent md:hidden"></div>
+                        <div class="absolute top-4 left-4">
+                            <span id="hero-source" class="badge-default text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg shadow-lg backdrop-blur-sm">SOURCE</span>
+                        </div>
                     </div>
-                    <h2 id="hero-title" class="text-xl sm:text-2xl md:text-4xl font-extrabold text-white leading-tight mb-3 group-hover:text-brand-accent transition-colors duration-300 drop-shadow-lg">Hero Title</h2>
-                    <p id="hero-text" class="text-sm md:text-base text-gray-300 line-clamp-2 md:line-clamp-3 leading-relaxed drop-shadow-md">Hero Description</p>
-                    <a id="hero-link" href="#" target="_blank" class="hidden"></a>
-                </div>
-            </div>
-        </div>
+                    <!-- Content -->
+                    <div class="relative w-full md:w-2/5 p-6 sm:p-8 md:p-10 flex flex-col justify-center bg-gradient-to-br from-brand-card to-brand-dark">
+                        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-brand-accent/30 via-brand-cyan/20 to-transparent md:hidden"></div>
+                        <div class="absolute top-0 left-0 h-full w-px bg-gradient-to-b from-brand-accent/30 via-brand-cyan/20 to-transparent hidden md:block"></div>
 
-        <!-- Section Header -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6 md:mb-8 gap-4">
-            <div class="flex items-center space-x-3">
-                <div class="w-1 h-8 bg-gradient-to-b from-brand-accent to-brand-cyan rounded-full"></div>
-                <div>
-                    <h3 class="text-xl md:text-2xl font-bold text-white tracking-tight">Latest AI Headlines</h3>
-                    <p class="text-xs text-brand-muted mt-0.5 font-mono" id="post-count">Loading...</p>
+                        <div class="flex items-center space-x-2 mb-4">
+                            <svg class="w-3.5 h-3.5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            <span class="text-[11px] text-brand-accent font-semibold uppercase tracking-wider">Featured Story</span>
+                        </div>
+
+                        <h2 id="hero-title" class="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-tight mb-4 group-hover:text-brand-accent transition-colors duration-300">Hero Title</h2>
+                        <p id="hero-text" class="text-sm md:text-base text-gray-400 leading-relaxed line-clamp-3 md:line-clamp-4 mb-6">Description</p>
+
+                        <div class="flex items-center justify-between mt-auto">
+                            <span id="hero-date" class="text-xs text-brand-muted font-mono">Date</span>
+                            <span class="flex items-center space-x-1.5 text-sm text-brand-accent font-semibold group-hover:text-brand-cyan transition-colors">
+                                <span>Read</span>
+                                <svg class="w-4 h-4 read-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                            </span>
+                        </div>
+                        <a id="hero-link" href="#" target="_blank" class="hidden"></a>
+                    </div>
                 </div>
             </div>
+        </section>
+
+        <!-- Source filters -->
+        <section class="mb-6 md:mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div class="flex items-center space-x-3">
-                <button id="refresh-btn" class="text-xs text-brand-muted hover:text-white transition-all flex items-center space-x-2 bg-brand-card px-4 py-2.5 rounded-xl border border-brand-border hover:border-brand-accent/50 hover:shadow-lg hover:shadow-brand-accent/10 active:scale-95">
-                    <svg id="refresh-icon" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89M21 3v5h-5"></path></svg>
+                <div class="w-1 h-7 bg-gradient-to-b from-brand-accent to-brand-cyan rounded-full"></div>
+                <h3 class="text-lg md:text-xl font-bold text-white tracking-tight">Latest Headlines</h3>
+            </div>
+            <div class="flex items-center space-x-2 overflow-x-auto pb-1 scrollbar-hide">
+                <button data-filter="all" class="filter-pill active text-[11px] md:text-xs font-semibold px-3.5 py-1.5 rounded-full border border-brand-border whitespace-nowrap">All Sources</button>
+                <button data-filter="TechCrunch" class="filter-pill text-[11px] md:text-xs font-medium text-brand-muted px-3.5 py-1.5 rounded-full border border-brand-border whitespace-nowrap">TechCrunch</button>
+                <button data-filter="Verge" class="filter-pill text-[11px] md:text-xs font-medium text-brand-muted px-3.5 py-1.5 rounded-full border border-brand-border whitespace-nowrap">The Verge</button>
+                <button data-filter="Ars" class="filter-pill text-[11px] md:text-xs font-medium text-brand-muted px-3.5 py-1.5 rounded-full border border-brand-border whitespace-nowrap">Ars Technica</button>
+                <button data-filter="VentureBeat" class="filter-pill text-[11px] md:text-xs font-medium text-brand-muted px-3.5 py-1.5 rounded-full border border-brand-border whitespace-nowrap">VentureBeat</button>
+                <button id="refresh-btn" class="filter-pill text-[11px] md:text-xs font-medium text-brand-muted px-3.5 py-1.5 rounded-full border border-brand-border whitespace-nowrap flex items-center space-x-1.5 hover:text-brand-accent hover:border-brand-accent/40">
+                    <svg id="refresh-icon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89M21 3v5h-5"/></svg>
                     <span>Refresh</span>
                 </button>
             </div>
-        </div>
+        </section>
 
         <!-- News Grid -->
-        <div id="news-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6">
-            <!-- Loading Skeletons -->
-            <div class="skeleton rounded-2xl h-[380px] border border-brand-border"></div>
-            <div class="skeleton rounded-2xl h-[380px] border border-brand-border"></div>
-            <div class="skeleton rounded-2xl h-[380px] border border-brand-border"></div>
-            <div class="skeleton rounded-2xl h-[380px] border border-brand-border"></div>
-            <div class="skeleton rounded-2xl h-[380px] border border-brand-border hidden sm:block"></div>
-            <div class="skeleton rounded-2xl h-[380px] border border-brand-border hidden lg:block"></div>
-            <div class="skeleton rounded-2xl h-[380px] border border-brand-border hidden xl:block"></div>
-            <div class="skeleton rounded-2xl h-[380px] border border-brand-border hidden xl:block"></div>
+        <div id="news-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
+            <div class="skeleton rounded-2xl h-[400px]"></div>
+            <div class="skeleton rounded-2xl h-[400px]"></div>
+            <div class="skeleton rounded-2xl h-[400px]"></div>
+            <div class="skeleton rounded-2xl h-[400px]"></div>
+            <div class="skeleton rounded-2xl h-[400px] hidden sm:block"></div>
+            <div class="skeleton rounded-2xl h-[400px] hidden lg:block"></div>
+            <div class="skeleton rounded-2xl h-[400px] hidden xl:block"></div>
+            <div class="skeleton rounded-2xl h-[400px] hidden xl:block"></div>
         </div>
 
+        <!-- Load more -->
+        <div id="load-more-wrap" class="mt-8 text-center hidden">
+            <button id="load-more-btn" class="px-8 py-3 rounded-xl border border-brand-border text-sm font-semibold text-brand-muted hover:text-white hover:border-brand-accent/50 transition-all hover:shadow-lg hover:shadow-brand-accent/10 active:scale-95">
+                Show More Articles
+            </button>
+        </div>
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-brand-border bg-brand-card/50 py-10 md:py-14 mt-auto relative">
-        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-accent/30 to-transparent"></div>
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex items-center justify-center space-x-2 mb-4">
-                <img src="logo.png" alt="AI Pulse Logo" class="w-8 h-8 rounded-lg object-cover">
-                <span class="font-bold text-white">AI<span class="text-brand-accent">Pulse</span></span>
-            </div>
-            <p class="text-sm text-brand-muted max-w-lg mx-auto leading-relaxed">
-                AI Pulse aggregates the latest artificial intelligence news from top sources including TechCrunch, The Verge, Ars Technica, and VentureBeat. Auto-updated every 5 minutes.
-            </p>
-            <div class="flex items-center justify-center space-x-4 mt-6 text-xs text-gray-600">
-                <span>&copy; 2026 AI Pulse</span>
-                <span>·</span>
-                <span class="font-mono">v2.0</span>
-                <span>·</span>
-                <a href="https://t.me/AINEWSHUB0" target="_blank" class="text-brand-accent/60 hover:text-brand-accent transition-colors">Telegram</a>
+    <footer class="border-t border-brand-border bg-brand-card/30 py-10 md:py-12 mt-auto relative z-10">
+        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-accent/20 to-transparent"></div>
+        <div class="max-w-[1400px] mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center space-x-3">
+                    <img src="logo.png" alt="AI Pulse" class="w-8 h-8 rounded-lg object-cover opacity-80">
+                    <div>
+                        <span class="font-bold text-white text-sm">AI<span class="text-brand-accent">Pulse</span></span>
+                        <p class="text-[10px] text-brand-muted">Aggregating AI's future, now.</p>
+                    </div>
+                </div>
+                <p class="text-xs text-brand-muted text-center max-w-md leading-relaxed">
+                    Real-time AI news from TechCrunch, The Verge, Ars Technica & VentureBeat. Auto-updated every 5 minutes.
+                </p>
+                <div class="flex items-center space-x-4 text-xs text-gray-600">
+                    <span>&copy; 2026 AI Pulse</span>
+                    <span class="text-brand-border">|</span>
+                    <a href="https://t.me/AINEWSHUB0" target="_blank" class="text-brand-accent/50 hover:text-brand-accent transition-colors flex items-center space-x-1">
+                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                        <span>Telegram</span>
+                    </a>
+                </div>
             </div>
         </div>
     </footer>
 
     <script>
+        // ===== CONFIG =====
         const NEWS_FILE = 'news.json';
-        const REFRESH_INTERVAL = 300; // 5 minutes in seconds
-        let countdownSeconds = REFRESH_INTERVAL;
-        let countdownTimer;
+        const REFRESH_SECONDS = 300; // 5 minutes
+        const INITIAL_SHOW = 12; // Cards visible initially
+        const LOAD_MORE_COUNT = 8;
 
-        function getSourceClass(source) {
+        // ===== STATE =====
+        let allPosts = [];
+        let visibleCount = INITIAL_SHOW;
+        let currentFilter = 'all';
+        let countdownSeconds = REFRESH_SECONDS;
+        let countdownTimer = null;
+        let lastDataHash = '';
+
+        // ===== UTILITIES =====
+        function getSourceBadge(source) {
             const s = (source || '').toLowerCase();
-            if (s.includes('techcrunch')) return 'source-techcrunch';
-            if (s.includes('verge')) return 'source-verge';
-            if (s.includes('ars')) return 'source-arstechnica';
-            if (s.includes('venturebeat') || s.includes('venture')) return 'source-venturebeat';
-            return 'source-default';
+            if (s.includes('techcrunch')) return 'badge-techcrunch';
+            if (s.includes('verge')) return 'badge-verge';
+            if (s.includes('ars')) return 'badge-ars';
+            if (s.includes('venturebeat') || s.includes('venture')) return 'badge-venture';
+            return 'badge-default';
         }
 
-        function formatDate(dateStr) {
+        function timeAgo(dateStr) {
             try {
-                const d = new Date(dateStr);
+                const d = new Date(dateStr.replace(' ', 'T'));
                 if (isNaN(d.getTime())) return dateStr;
                 const now = new Date();
-                const diffMs = now - d;
-                const diffMins = Math.floor(diffMs / 60000);
-                const diffHours = Math.floor(diffMs / 3600000);
-                const diffDays = Math.floor(diffMs / 86400000);
-
-                if (diffMins < 1) return 'Just now';
-                if (diffMins < 60) return `${diffMins}m ago`;
-                if (diffHours < 24) return `${diffHours}h ago`;
-                if (diffDays < 7) return `${diffDays}d ago`;
+                const secs = Math.floor((now - d) / 1000);
+                if (secs < 60) return 'Just now';
+                if (secs < 3600) return `${Math.floor(secs/60)}m ago`;
+                if (secs < 86400) return `${Math.floor(secs/3600)}h ago`;
+                if (secs < 604800) return `${Math.floor(secs/86400)}d ago`;
                 return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-            } catch {
-                return dateStr;
-            }
+            } catch { return dateStr; }
         }
 
-        async function fetchNews() {
+        function hashData(data) {
+            return JSON.stringify(data.slice(0, 5).map(p => p.id)).substring(0, 100);
+        }
+
+        function getFilteredPosts() {
+            if (currentFilter === 'all') return allPosts;
+            return allPosts.filter(p => (p.source || '').toLowerCase().includes(currentFilter.toLowerCase()));
+        }
+
+        // ===== FETCH =====
+        async function fetchNews(silent = false) {
             try {
-                const response = await fetch(`${NEWS_FILE}?t=${Date.now()}`);
-                if (!response.ok) throw new Error('File not found');
-                const data = await response.json();
-                if (data && data.length > 0) {
-                    updateUI(data);
+                const res = await fetch(`${NEWS_FILE}?t=${Date.now()}`);
+                if (!res.ok) throw new Error('Not found');
+                const data = await res.json();
+                if (!data || data.length === 0) throw new Error('Empty');
+
+                const newHash = hashData(data);
+                if (newHash === lastDataHash && silent) {
+                    resetCountdown();
+                    return;
                 }
+                lastDataHash = newHash;
+                allPosts = data;
+                visibleCount = INITIAL_SHOW;
+                renderUI();
             } catch (err) {
-                console.warn('Failed to load news.json:', err);
-
-                const baseFallback = [
-                    {
-                        "title": "Welcome to AI Pulse — Your Premium AI News Hub",
-                        "text": "AI Pulse aggregates real-time artificial intelligence news from TechCrunch, The Verge, Ars Technica, and VentureBeat. Once deployed, live news will appear here automatically.",
-                        "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
-                        "date": new Date().toISOString(),
-                        "source": "AI Pulse",
-                        "link": "#"
-                    },
-                    {
-                        "title": "GPT-5 Sets New Benchmarks in Reasoning and Multimodal Tasks",
-                        "text": "OpenAI's latest model demonstrates unprecedented performance across coding, mathematics, and visual understanding benchmarks, marking a significant leap in AI capabilities.",
-                        "image_url": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80",
-                        "date": new Date().toISOString(),
-                        "source": "TechCrunch AI",
-                        "link": "#"
-                    },
-                    {
-                        "title": "Google DeepMind Unveils New Approach to Artificial General Intelligence",
-                        "text": "DeepMind researchers publish groundbreaking paper on scalable architectures that could pave the way toward more general AI systems.",
-                        "image_url": "https://images.unsplash.com/photo-1555255707-c07966088b7b?w=800&q=80",
-                        "date": new Date().toISOString(),
-                        "source": "The Verge",
-                        "link": "#"
-                    },
-                    {
-                        "title": "AI Startups Raise Record $15B in Q2 2026",
-                        "text": "Venture capital funding for AI companies hits an all-time high, with major investments in robotics, healthcare AI, and autonomous systems.",
-                        "image_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
-                        "date": new Date().toISOString(),
-                        "source": "VentureBeat",
-                        "link": "#"
-                    },
-                    {
-                        "title": "Europe's AI Act: What Companies Need to Know",
-                        "text": "The European Union's comprehensive AI regulation is now in full effect. Here's how it impacts tech companies, developers, and end users worldwide.",
-                        "image_url": "https://images.unsplash.com/photo-1529236183275-4fdcf2bc987e?w=800&q=80",
-                        "date": new Date().toISOString(),
-                        "source": "Ars Technica",
-                        "link": "#"
-                    }
-                ];
-
-                const fallbackData = [...baseFallback, ...baseFallback.slice(1), ...baseFallback.slice(1)];
-                updateUI(fallbackData);
-
-                if (!document.getElementById('local-warning')) {
-                    const warn = document.createElement('div');
-                    warn.id = 'local-warning';
-                    warn.className = 'fixed bottom-4 right-4 bg-brand-accent/90 backdrop-blur-sm text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-lg z-50 font-mono border border-white/10';
-                    warn.innerText = '⚡ Local Mode — Demo Data';
-                    document.body.appendChild(warn);
+                console.warn('news.json load failed:', err);
+                if (allPosts.length === 0) {
+                    allPosts = getFallback();
+                    renderUI();
+                    showLocalWarning();
                 }
             }
             resetCountdown();
         }
 
-        function updateUI(posts) {
-            if (!posts || posts.length === 0) return;
+        // ===== RENDER =====
+        function renderUI() {
+            const posts = getFilteredPosts();
+            if (!posts.length) return;
 
-            // Update Hero
+            // -- Article count --
+            document.getElementById('article-count').textContent = `${allPosts.length} articles`;
+
+            // -- Hero --
             const hero = posts[0];
-            const heroSection = document.getElementById('hero-section');
+            const heroEl = document.getElementById('hero-section');
             document.getElementById('hero-img').src = hero.image_url;
-            document.getElementById('hero-title').innerText = hero.title;
-            document.getElementById('hero-text').innerText = hero.text || '';
-            document.getElementById('hero-date').innerText = formatDate(hero.date);
+            document.getElementById('hero-title').textContent = hero.title;
+            document.getElementById('hero-text').textContent = hero.text || '';
+            document.getElementById('hero-date').textContent = timeAgo(hero.date);
             const heroSource = document.getElementById('hero-source');
-            heroSource.innerText = hero.source || 'AI NEWS';
-            heroSource.className = `${getSourceClass(hero.source)} text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-md shadow-md`;
+            heroSource.textContent = hero.source || 'AI NEWS';
+            heroSource.className = `${getSourceBadge(hero.source)} text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg shadow-lg backdrop-blur-sm`;
             document.getElementById('hero-link').href = hero.link || '#';
-            heroSection.classList.remove('hidden');
+            heroEl.classList.remove('hidden');
+            heroEl.classList.add('fade-in');
 
-            // Update Grid
+            // -- Grid --
             const grid = document.getElementById('news-grid');
             grid.innerHTML = '';
 
-            const gridPosts = posts.slice(1);
-            document.getElementById('post-count').innerText = `${posts.length} articles · Auto-refreshes every 5 min`;
-
-            gridPosts.forEach((post, index) => {
+            const gridPosts = posts.slice(1, 1 + visibleCount);
+            gridPosts.forEach((post, i) => {
                 const card = document.createElement('a');
                 card.href = post.link || '#';
                 card.target = '_blank';
-                card.className = "news-card rounded-2xl overflow-hidden border border-brand-border flex flex-col group cursor-pointer relative";
-                card.style.animationDelay = `${index * 50}ms`;
-
-                const sourceClass = getSourceClass(post.source);
+                card.rel = 'noopener noreferrer';
+                card.className = 'news-card rounded-2xl overflow-hidden border border-brand-border flex flex-col group cursor-pointer relative fade-in';
+                card.style.animationDelay = `${i * 60}ms`;
 
                 card.innerHTML = `
-                    <div class="card-glow"></div>
-                    <div class="h-44 md:h-48 overflow-hidden relative bg-brand-card">
-                        <img src="${post.image_url}" alt="" class="image-zoom w-full h-full object-cover" loading="lazy"
+                    <div class="card-shine"></div>
+                    <div class="h-44 md:h-48 overflow-hidden relative bg-brand-surface">
+                        <img src="${post.image_url}" alt="" class="card-img w-full h-full object-cover" loading="lazy"
                              onerror="this.src='https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80'">
-                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/60 to-transparent"></div>
-                        <div class="absolute top-3 left-3 ${sourceClass} text-white text-[9px] md:text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow-lg backdrop-blur-sm border border-white/10">
-                            ${post.source || 'AI News'}
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/50 to-transparent opacity-60"></div>
+                        <div class="absolute top-3 left-3">
+                            <span class="${getSourceBadge(post.source)} text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow-md">
+                                ${post.source || 'AI News'}
+                            </span>
                         </div>
                     </div>
                     <div class="p-4 md:p-5 flex flex-col flex-grow">
-                        <div class="text-[10px] text-brand-muted mb-2 font-mono tracking-wide uppercase flex items-center space-x-1.5">
-                            <svg class="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span>${formatDate(post.date)}</span>
+                        <div class="flex items-center space-x-1.5 text-[10px] text-brand-muted font-mono mb-2.5">
+                            <svg class="w-3 h-3 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            <span>${timeAgo(post.date)}</span>
                         </div>
-                        <h4 class="text-sm md:text-[15px] font-bold text-gray-100 leading-snug line-clamp-3 mb-2.5 group-hover:text-brand-accent transition-colors duration-300">
+                        <h4 class="text-[14px] md:text-[15px] font-bold text-gray-100 leading-snug line-clamp-3 mb-2 group-hover:text-brand-accent transition-colors duration-300">
                             ${post.title}
                         </h4>
-                        <p class="text-xs md:text-sm text-brand-muted leading-relaxed line-clamp-2 mt-auto">
+                        <p class="text-xs text-brand-muted leading-relaxed line-clamp-2 mt-auto mb-3">
                             ${post.text || ''}
                         </p>
-                        <div class="mt-3 pt-3 border-t border-brand-border/50 flex items-center justify-between">
-                            <span class="text-[10px] text-brand-accent font-semibold group-hover:text-brand-cyan transition-colors">Read more →</span>
+                        <div class="pt-3 border-t border-brand-border/40 flex items-center justify-between">
+                            <span class="text-[10px] font-mono text-brand-muted">${post.date || ''}</span>
+                            <span class="flex items-center space-x-1 text-[11px] text-brand-accent font-semibold group-hover:text-brand-cyan transition-colors">
+                                <span>Read</span>
+                                <svg class="w-3.5 h-3.5 read-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                            </span>
                         </div>
                     </div>
                 `;
                 grid.appendChild(card);
             });
+
+            // -- Load more button --
+            const remaining = posts.length - 1 - visibleCount;
+            const loadMoreWrap = document.getElementById('load-more-wrap');
+            const loadMoreBtn = document.getElementById('load-more-btn');
+            if (remaining > 0) {
+                loadMoreWrap.classList.remove('hidden');
+                loadMoreBtn.textContent = `Show ${Math.min(remaining, LOAD_MORE_COUNT)} More Articles (${remaining} remaining)`;
+            } else {
+                loadMoreWrap.classList.add('hidden');
+            }
         }
 
+        // ===== COUNTDOWN =====
         function resetCountdown() {
             clearInterval(countdownTimer);
-            countdownSeconds = REFRESH_INTERVAL;
+            countdownSeconds = REFRESH_SECONDS;
+            updateBar();
             updateTimerText();
             countdownTimer = setInterval(() => {
                 countdownSeconds--;
-                if (countdownSeconds <= 0) fetchNews();
-                else updateTimerText();
+                if (countdownSeconds <= 0) {
+                    fetchNews(true);
+                } else {
+                    updateTimerText();
+                    updateBar();
+                }
             }, 1000);
         }
 
@@ -441,22 +529,77 @@
             const m = Math.floor(countdownSeconds / 60);
             const s = countdownSeconds % 60;
             const el = document.getElementById('update-timer');
-            if (el) el.innerText = `${m}:${s < 10 ? '0'+s : s}`;
+            if (el) el.textContent = `${m}:${s < 10 ? '0'+s : s}`;
         }
 
-        document.getElementById('refresh-btn').addEventListener('click', (e) => {
-            const icon = document.getElementById('refresh-icon');
-            icon.classList.add('animate-spin');
-            e.currentTarget.disabled = true;
-            fetchNews().finally(() => {
-                setTimeout(() => {
-                    icon.classList.remove('animate-spin');
-                    e.currentTarget.disabled = false;
-                }, 800);
+        function updateBar() {
+            const pct = (countdownSeconds / REFRESH_SECONDS) * 100;
+            const bar = document.getElementById('refresh-bar');
+            if (bar) bar.style.width = pct + '%';
+        }
+
+        // ===== FILTERS =====
+        document.querySelectorAll('.filter-pill[data-filter]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-pill[data-filter]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                visibleCount = INITIAL_SHOW;
+                renderUI();
             });
         });
 
-        window.addEventListener('DOMContentLoaded', fetchNews);
+        // ===== REFRESH BUTTON =====
+        document.getElementById('refresh-btn').addEventListener('click', () => {
+            const icon = document.getElementById('refresh-icon');
+            icon.classList.add('animate-spin');
+            fetchNews(false).finally(() => {
+                setTimeout(() => icon.classList.remove('animate-spin'), 800);
+            });
+        });
+
+        // ===== LOAD MORE =====
+        document.getElementById('load-more-btn').addEventListener('click', () => {
+            visibleCount += LOAD_MORE_COUNT;
+            renderUI();
+            // Smooth scroll to new content
+            setTimeout(() => {
+                const grid = document.getElementById('news-grid');
+                const cards = grid.children;
+                if (cards.length > visibleCount - LOAD_MORE_COUNT) {
+                    cards[visibleCount - LOAD_MORE_COUNT]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 100);
+        });
+
+        // ===== SCROLL NAV =====
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('main-nav');
+            nav.classList.toggle('scrolled', window.scrollY > 20);
+        }, { passive: true });
+
+        // ===== FALLBACK =====
+        function getFallback() {
+            return [
+                { title: "Welcome to AI Pulse", text: "Your premium AI news aggregator. Once deployed, real-time news from top tech sources will appear here automatically every 5 minutes.", image_url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80", date: new Date().toISOString(), source: "AI Pulse", link: "#" },
+                { title: "OpenAI Advances Reasoning with Latest Model", text: "The latest developments in AI reasoning capabilities push the boundaries of what's possible with large language models.", image_url: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80", date: new Date().toISOString(), source: "TechCrunch AI", link: "#" },
+                { title: "Google DeepMind Publishes Breakthrough Research", text: "New research from DeepMind explores novel architectures for more efficient and capable AI systems.", image_url: "https://images.unsplash.com/photo-1555255707-c07966088b7b?w=800&q=80", date: new Date().toISOString(), source: "The Verge", link: "#" },
+                { title: "AI Safety: The Challenge of Alignment", text: "Researchers tackle one of AI's most critical challenges — ensuring powerful AI systems remain aligned with human values.", image_url: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80", date: new Date().toISOString(), source: "Ars Technica", link: "#" },
+                { title: "Record-Breaking AI Investment in 2026", text: "Venture capital continues to pour into AI startups, with total funding exceeding all previous records.", image_url: "https://images.unsplash.com/photo-1529236183275-4fdcf2bc987e?w=800&q=80", date: new Date().toISOString(), source: "VentureBeat", link: "#" },
+            ];
+        }
+
+        function showLocalWarning() {
+            if (document.getElementById('local-warning')) return;
+            const w = document.createElement('div');
+            w.id = 'local-warning';
+            w.className = 'fixed bottom-4 right-4 bg-brand-accent/90 backdrop-blur-sm text-white text-[11px] font-semibold px-4 py-2.5 rounded-xl shadow-xl z-50 font-mono border border-white/10 flex items-center space-x-2';
+            w.innerHTML = '<span class="blink-status inline-block w-1.5 h-1.5 rounded-full bg-yellow-300"></span><span>Demo Mode</span>';
+            document.body.appendChild(w);
+        }
+
+        // ===== INIT =====
+        window.addEventListener('DOMContentLoaded', () => fetchNews(false));
     </script>
 </body>
 </html>
